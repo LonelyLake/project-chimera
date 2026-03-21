@@ -6,6 +6,3 @@
 
 [node name="Hub" parent="." unique_id=1526646529 instance=ExtResource("1_uwrxv")]
 position = Vector2(3, 3)
-
-[node name="Hub2" parent="." unique_id=473297067 instance=ExtResource("1_uwrxv")]
-position = Vector2(3, 3)
