@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0r6hyjrtkyqy"
-path="res://.godot/imported/main_robot.png-2e6f58015d00623c950965182526708a.ctex"
+uid="uid://bxerg87v2j776"
+path="res://.godot/imported/neo_zero_char_01.png-8d668f4bfbbeb0bd8f581e9e0d6df1cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/main_robot.png"
-dest_files=["res://.godot/imported/main_robot.png-2e6f58015d00623c950965182526708a.ctex"]
+source_file="res://assets/sprites/neo_zero_char_01.png"
+dest_files=["res://.godot/imported/neo_zero_char_01.png-8d668f4bfbbeb0bd8f581e9e0d6df1cc.ctex"]
 
 [params]
 
