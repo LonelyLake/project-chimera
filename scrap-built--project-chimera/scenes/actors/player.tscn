@@ -132,9 +132,12 @@ animations = [{
 radius = 5.0
 height = 18.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1864995814]
+[sub_resource type="CircleShape2D" id="CircleShape2D_15tap"]
+radius = 19.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1864995814 groups=["player"]]
 collision_layer = 2
-collision_mask = 29
+collision_mask = 21
 motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1170824870]
@@ -149,3 +152,10 @@ autoplay = "idle_down"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236060119]
 position = Vector2(1, 0)
 shape = SubResource("CapsuleShape2D_15tap")
+
+[node name="InteractionZone" type="Area2D" parent="." unique_id=982656552]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone" unique_id=158175879]
+shape = SubResource("CircleShape2D_15tap")

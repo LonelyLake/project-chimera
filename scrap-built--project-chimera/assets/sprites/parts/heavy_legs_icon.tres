@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://qy885hwxn84e"]
+
+[ext_resource type="Texture2D" uid="uid://bxerg87v2j776" path="res://assets/sprites/neo_zero_char_01.png" id="1_m6sqi"]
+
+[resource]
+atlas = ExtResource("1_m6sqi")
+region = Rect2(46, 214, 4, 6)

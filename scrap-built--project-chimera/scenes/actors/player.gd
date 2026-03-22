@@ -6,6 +6,8 @@ extends CharacterBody2D
 @onready var anim = $AnimatedSprite2D
 var last_direction = "down"
 
+@onready var interaction_zone = $InteractionZone
+
 
 func _physics_process(_delta: float) -> void:
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -33,3 +35,19 @@ func update_animation(dir: Vector2):
 			last_direction = "up"
 			anim.play("walk_up")
 			anim.flip_h = false
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Check if the player pressed the interaction button
+	if event.is_action_pressed("interact"):
+
+		# Get a list of all Area2Ds that currently overlap with our zone
+		var areas = interaction_zone.get_overlapping_areas()
+
+		if areas.size() > 0:
+			# Take the first item within the radius
+			var item = areas[0]
+
+			# Check if this object has a collect function
+			if item.has_method("collect"):
+				item.collect()
