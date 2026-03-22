@@ -6,6 +6,14 @@
 atlas = ExtResource("1_15tap")
 region = Rect2(32, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4rn8"]
+atlas = ExtResource("1_15tap")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15tap"]
+atlas = ExtResource("1_15tap")
+region = Rect2(32, 128, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ktjr4"]
 atlas = ExtResource("1_15tap")
 region = Rect2(0, 96, 32, 32)
@@ -44,17 +52,28 @@ region = Rect2(64, 128, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c4rn8"]
 animations = [{
-"frames": [],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ru62r")
 }],
 "loop": true,
 "name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4rn8")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15tap")
+}],
+"loop": true,
+"name": &"idle_up",
 "speed": 5.0
 }, {
 "frames": [{
@@ -124,9 +143,8 @@ position_smoothing_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1609763101]
 sprite_frames = SubResource("SpriteFrames_c4rn8")
-animation = &"idle_down"
+animation = &"idle_right"
 autoplay = "idle_down"
-frame_progress = 0.8099567
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236060119]
 position = Vector2(1, 0)

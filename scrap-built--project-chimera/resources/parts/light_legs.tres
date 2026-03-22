@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RobotPart" format=3 uid="uid://qo2giquoptf"]
+
+[ext_resource type="Script" uid="uid://cslakhm8xjama" path="res://scripts/resources/robot_part.gd" id="1_xdwrd"]
+
+[resource]
+script = ExtResource("1_xdwrd")
+part_name = "Light legs"
+type = 3
+hp_bonus = 10
+speed_bonus = 40.0
+metadata/_custom_type_script = "uid://cslakhm8xjama"
