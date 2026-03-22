@@ -9,13 +9,17 @@ var scrap_count: int = 0
 
 
 var equipped_parts = {
-	"head": "Mk.1 Blue",
-	"torso": "Standard Frame",
-	"arms": "Basic Grippers",
-	"legs": "Standard Struts"
+	"head": null,
+	"torso": null,
+	"arms": null,
+	"legs": null
 }
 
 var collected_parts = []
+
+
+func _ready() -> void:
+	equipped_parts["legs"] = load("res://resources/parts/light_legs.tres")
 
 
 func add_scrap(amount: int):
@@ -26,3 +30,12 @@ func add_scrap(amount: int):
 func repair_player(amount: int):
 	player_hp = min(player_hp + amount, player_max_hp)
 	print("Robot repaired. HP: ", player_hp)
+	
+
+func get_total_speed(base_speed: float) -> float:
+	var bonus = 0.0
+	
+	if equipped_parts["legs"] != null:
+		bonus += equipped_parts["legs"].speed_bonus
+		
+	return base_speed + bonus

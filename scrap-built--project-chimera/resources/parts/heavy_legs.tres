@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RobotPart" format=3 uid="uid://d14t7e1513i5x"]
+
+[ext_resource type="Script" uid="uid://cslakhm8xjama" path="res://scripts/resources/robot_part.gd" id="1_848bo"]
+[ext_resource type="Texture2D" uid="uid://qy885hwxn84e" path="res://assets/sprites/parts/heavy_legs_icon.tres" id="2_iiwyh"]
+
+[resource]
+script = ExtResource("1_848bo")
+part_name = "Heavy legs"
+type = 3
+texture = ExtResource("2_iiwyh")
+hp_bonus = 50
+speed_bonus = -20.0
+metadata/_custom_type_script = "uid://cslakhm8xjama"
