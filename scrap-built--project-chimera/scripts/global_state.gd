@@ -1,8 +1,8 @@
 extends Node
 
 
-var player_hp: int = 50
-var player_max_hp: int = 50
+var player_hp: int = 100
+var player_max_hp: int = 100
 var player_energy: int = 150
 var player_max_energy: int = 150
 var scrap_count: int = 0
@@ -20,6 +20,13 @@ var collected_parts = []
 
 func _ready() -> void:
 	equipped_parts["legs"] = load("res://resources/parts/light_legs.tres")
+
+
+func take_damage(amount: int):
+	player_hp -= amount
+	player_hp = clamp(player_hp, 0, player_max_hp)
+	if player_hp <= 0:
+		print("The robot is disabled!")
 
 
 func add_scrap(amount: int):
