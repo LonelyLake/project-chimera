@@ -7,6 +7,7 @@ const POPUP_SCENE = preload("res://scenes/ui/popup_label.tscn")
 
 @onready var sprite = $Sprite2D
 
+
 func _ready():
 # If the data has been added and the part has an image, apply it to the sprite
 	if item_data and item_data.texture:
@@ -26,13 +27,10 @@ func collect():
 	
 	var popup = POPUP_SCENE.instantiate()
 	
-	popup.text = "+ " + item_data.part_name
-	
+	popup.get_node("Label").text = "+ " + item_data.part_name
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
-		popup.global_position = player.global_position + Vector2(-32, -20)
-	   
 		get_tree().current_scene.add_child(popup)
-	
-	# Remove the item from the scene (it "picked up")
+		popup.global_position = player.global_position + Vector2(-20, -10)
+
 	queue_free()
