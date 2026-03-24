@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var speed: float = 200.0
+@export var speed: float = 100.0
 
 @onready var anim = $AnimatedSprite2D
 var last_direction = "down"
