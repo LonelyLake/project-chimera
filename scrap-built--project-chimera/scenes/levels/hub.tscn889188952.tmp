@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bq6fsj12k8ylr"]
 
 [ext_resource type="PackedScene" uid="uid://cvctvv0cp3ot4" path="res://scenes/actors/player.tscn" id="1_vxnch"]
-[ext_resource type="Script" uid="uid://n67styv28xat" path="res://scripts/actors/player.gd" id="2_b0i68"]
+[ext_resource type="Script" uid="uid://n67styv28xat" path="res://scenes/actors/player.gd" id="2_b0i68"]
 [ext_resource type="PackedScene" uid="uid://cyww41exk637b" path="res://scenes/actors/shop_assistant.tscn" id="2_ysqli"]
 [ext_resource type="Texture2D" uid="uid://jxeaprly0uck" path="res://assets/sprites/tileset.png" id="3_3vq6u"]
 [ext_resource type="Texture2D" uid="uid://daox82d7m0pc7" path="res://assets/sprites/neo_zero_props_02_free.png" id="4_bsb6g"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bdkv4k8dkwcjf" path="res://assets/sprites/neo_zero_buildings_02.png" id="5_frsds"]
 [ext_resource type="PackedScene" uid="uid://dl0uori2olh8e" path="res://scenes/items/scrap_item.tscn" id="5_ysqli"]
 [ext_resource type="Resource" uid="uid://d14t7e1513i5x" path="res://resources/parts/heavy_legs.tres" id="6_ysqli"]
-[ext_resource type="Resource" uid="uid://cwir5hl6vxxc8" path="res://resources/consumable/rename_battery.tres" id="9_x0xvm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bsb6g"]
 texture = ExtResource("3_3vq6u")
@@ -793,10 +792,6 @@ item_data = ExtResource("6_ysqli")
 position = Vector2(149, 137)
 
 [node name="Ammo" parent="Items" unique_id=423395755 instance=ExtResource("5_erssn")]
-
-[node name="Battery" parent="Items" unique_id=1123427933 instance=ExtResource("5_erssn")]
-position = Vector2(98, 40)
-item_data = ExtResource("9_x0xvm")
 
 [node name="Player" parent="." unique_id=1864995814 instance=ExtResource("1_vxnch")]
 y_sort_enabled = true

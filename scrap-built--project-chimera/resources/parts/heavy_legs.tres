@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource("1_848bo")
-part_name = "Heavy legs"
 type = 3
-texture = ExtResource("2_iiwyh")
 hp_bonus = 50
 speed_bonus = -20.0
+item_name = "Heavy legs"
+texture = ExtResource("2_iiwyh")
 metadata/_custom_type_script = "uid://cslakhm8xjama"

@@ -7,11 +7,12 @@ radius = 6.0827627
 
 [node name="ItemDrop" type="Area2D" unique_id=1961565819]
 collision_layer = 8
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("1_aaasa")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=730303737]
-scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1742544404]
 shape = SubResource("CircleShape2D_sdob7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

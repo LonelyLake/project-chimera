@@ -4,8 +4,7 @@
 
 [resource]
 script = ExtResource("1_xdwrd")
-part_name = "Light legs"
 type = 3
-hp_bonus = 10
-speed_bonus = 40.0
+speed_bonus = 30.0
+item_name = "Light legs"
 metadata/_custom_type_script = "uid://cslakhm8xjama"
