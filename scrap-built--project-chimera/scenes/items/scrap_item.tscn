@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dl0uori2olh8e"]
 
 [ext_resource type="Script" uid="uid://duyp1m47pihum" path="res://scripts/items/scrap_item.gd" id="1_7hilg"]
-[ext_resource type="Texture2D" uid="uid://1y8w2m173ive" path="res://assets/sprites/items/scrap_icon.tres" id="1_dipbx"]
+[ext_resource type="Texture2D" uid="uid://1y8w2m173ive" path="res://resources/textures/items/scrap_icon.tres" id="1_dipbx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dipbx"]
 radius = 11.0

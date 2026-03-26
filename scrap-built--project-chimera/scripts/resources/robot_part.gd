@@ -2,7 +2,7 @@ class_name RobotPart
 extends ItemData
 
 
-enum PartType { HEAD, TORSO, ARMS, LEGS }
+enum PartType { HEAD, TORSO, ARMS, WHEEL }
 
 @export var type: PartType
 

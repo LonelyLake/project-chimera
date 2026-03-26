@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cyww41exk637b"]
+
+[ext_resource type="Texture2D" uid="uid://bofqftb74fvua" path="res://assets/sprites/other/0x72_16x16RobotTileset.v1.png" id="1_hlnid"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b81gm"]
+atlas = ExtResource("1_hlnid")
+region = Rect2(208, 49, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ceuv"]
+atlas = ExtResource("1_hlnid")
+region = Rect2(224, 49, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_175ly"]
+atlas = ExtResource("1_hlnid")
+region = Rect2(240, 49, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s27dw"]
+atlas = ExtResource("1_hlnid")
+region = Rect2(256, 49, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s5f2l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b81gm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ceuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_175ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s27dw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxw6t"]
+
+[node name="Shop_assistant" type="CharacterBody2D" unique_id=167921447]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=3467528]
+sprite_frames = SubResource("SpriteFrames_s5f2l")
+autoplay = "default"
+frame_progress = 0.086204514
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2028873846]
+position = Vector2(1, 4)
+shape = SubResource("CircleShape2D_dxw6t")
