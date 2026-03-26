@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dl0uori2olh8e"]
+
+[ext_resource type="Script" uid="uid://duyp1m47pihum" path="res://scripts/items/scrap_item.gd" id="1_7hilg"]
+[ext_resource type="Texture2D" uid="uid://1y8w2m173ive" path="res://resources/textures/items/scrap_icon.tres" id="1_dipbx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dipbx"]
+radius = 11.0
+
+[node name="ScrapItem" type="Area2D" unique_id=1365247566]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_7hilg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1375348280]
+texture = ExtResource("1_dipbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=545502063]
+shape = SubResource("CircleShape2D_dipbx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

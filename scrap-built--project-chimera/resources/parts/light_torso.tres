@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RobotPart" format=3 uid="uid://dwsrbtwjh1ifp"]
+
+[ext_resource type="Script" uid="uid://cslakhm8xjama" path="res://scripts/resources/robot_part.gd" id="1_wpvc0"]
+
+[resource]
+script = ExtResource("1_wpvc0")
+type = 1
+item_name = "Light torso"
+metadata/_custom_type_script = "uid://cslakhm8xjama"

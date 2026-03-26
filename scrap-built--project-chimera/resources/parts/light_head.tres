@@ -4,6 +4,5 @@
 
 [resource]
 script = ExtResource("1_iapdc")
-part_name = "Light head"
-hp_bonus = 30
+item_name = "Light head"
 metadata/_custom_type_script = "uid://cslakhm8xjama"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RobotPart" format=3 uid="uid://d14t7e1513i5x"]
+
+[ext_resource type="Script" uid="uid://cslakhm8xjama" path="res://scripts/resources/robot_part.gd" id="1_fhbwv"]
+[ext_resource type="Texture2D" uid="uid://qy885hwxn84e" path="res://resources/textures/parts/heavy_wheel_icon.tres" id="2_8ofgf"]
+
+[resource]
+script = ExtResource("1_fhbwv")
+type = 3
+hp_bonus = 50
+speed_bonus = -20.0
+item_name = "Heavy wheels"
+texture = ExtResource("2_8ofgf")
+metadata/_custom_type_script = "uid://cslakhm8xjama"
