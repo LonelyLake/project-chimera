@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c1l2j8w2j8v"]
+
+[ext_resource type="Script" uid="uid://bjf5ud8aifqg3" path="res://scripts/resources/item_data.gd" id="1_item_script"]
+
+[resource]
+script = ExtResource("1_item_script")
+item_name = "Laser Gun"
+description = "A powerful energy weapon."
