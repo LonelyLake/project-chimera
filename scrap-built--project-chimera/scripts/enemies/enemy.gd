@@ -9,11 +9,11 @@ extends CharacterBody2D
 
 
 func take_damage(amount: int):
-	hp -= amount
-	if hp <= 0:
-		die()
+    hp -= amount
+    if hp <= 0:
+        die()
 
 
 func die():
-	GameManager.add_scrap(scrap_reward)
-	queue_free()
+    GameManager.add_scrap(scrap_reward)
+    queue_free()
