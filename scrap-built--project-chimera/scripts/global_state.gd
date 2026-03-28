@@ -6,7 +6,7 @@ var player_max_hp: float = 50
 var player_energy: float = 50.0
 var player_max_energy: float = 100.0
 var player_speed_bonus: float = 0.0
-var scrap_count: int = 0
+var scrap_count: int = 200 # TEST
 var player_invincible = false
 var has_key: bool = false
 
@@ -56,30 +56,30 @@ func add_scrap(amount: int):
     
 
 func collect_key():
-	has_key = true
-	key_collected.emit()
-	print("Key collected!")
+    has_key = true
+    key_collected.emit()
+    print("Key collected!")
 
 
 func consume_key():
-	has_key = false
-	print("Key consumed!")
+    has_key = false
+    print("Key consumed!")
 
 
 func add_to_inventory(item: ItemData):
-	if item == null: return
-	inventory.append(item)
-	inventory_changed.emit()
-	print("Item added to inventory: ", item.item_name)
+    if item == null: return
+    inventory.append(item)
+    inventory_changed.emit()
+    print("Item added to inventory: ", item.item_name)
 
 
 func remove_from_inventory(item_name: String):
-	for i in range(inventory.size()):
-		if inventory[i].item_name == item_name:
-			inventory.remove_at(i)
-			inventory_changed.emit()
-			return true
-	return false
+    for i in range(inventory.size()):
+        if inventory[i].item_name == item_name:
+            inventory.remove_at(i)
+            inventory_changed.emit()
+            return true
+    return false
 
 
 func equip_part(part: RobotPart):
