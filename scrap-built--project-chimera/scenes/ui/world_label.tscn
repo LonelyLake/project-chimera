@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2p0j8w2j8v"]
+
+[sub_resource type="GDScript" id="GDScript_label"]
+script/source = "extends Node2D
+
+@export var text: String = \"LABEL\":
+	set(value):
+		text = value
+		if is_inside_tree():
+			$PanelContainer/MarginContainer/Label.text = value
+
+@export var color: Color = Color(1, 0, 0):
+	set(value):
+		color = value
+		if is_inside_tree():
+			update_color()
+
+func _ready():
+	$PanelContainer/MarginContainer/Label.text = text
+	update_color()
+	
+	# Animacja pływania góra-dół
+	var tween = create_tween().set_loops()
+	tween.tween_property($PanelContainer, \"position:y\", -3.0, 1.5).as_relative().set_trans(Tween.TRANS_SINE)
+	tween.tween_property($PanelContainer, \"position:y\", 3.0, 1.5).as_relative().set_trans(Tween.TRANS_SINE)
+
+func update_color():
+	# Duplikujemy styl ramki, aby był unikalny dla tej instancji
+	var style_box = $PanelContainer.get_theme_stylebox(\"panel\").duplicate()
+	style_box.border_color = color
+	$PanelContainer.add_theme_stylebox_override(\"panel\", style_box)
+	
+	# Duplikujemy LabelSettings, aby zmiana koloru tekstu nie wpływała na inne napisy
+	if $PanelContainer/MarginContainer/Label.label_settings:
+		$PanelContainer/MarginContainer/Label.label_settings = $PanelContainer/MarginContainer/Label.label_settings.duplicate()
+		$PanelContainer/MarginContainer/Label.label_settings.font_color = color
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_label"]
+bg_color = Color(0, 0, 0, 0.470588)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 2.0
+expand_margin_top = 1.0
+expand_margin_right = 2.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_label"]
+font_size = 8
+font_color = Color(1, 0.2, 0.2, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="WorldLabel" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = SubResource("GDScript_label")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_label")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "LABEL"
+label_settings = SubResource("LabelSettings_label")
+horizontal_alignment = 1
+vertical_alignment = 1

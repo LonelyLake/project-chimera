@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b8p0j8w2j8v"]
+
+[ext_resource type="Script" uid="uid://cd86jswd6gcwn" path="res://scripts/objects/mystery_box.gd" id="1_box_script"]
+[ext_resource type="Texture2D" uid="uid://daox82d7m0pc7" path="res://assets/sprites/neo_zero/neo_zero_props_02_free.png" id="2_ti1as"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_box"]
+size = Vector2(16, 16)
+
+[node name="MysteryBox" type="Area2D" unique_id=362408459]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_box_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=772085642]
+texture = ExtResource("2_ti1as")
+region_enabled = true
+region_rect = Rect2(31.898575, 49.58313, 15.827568, 13.295158)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=888953113]
+shape = SubResource("RectangleShape2D_box")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2090679604]
+
+[node name="MysteryBoxUI" type="Control" parent="CanvasLayer" unique_id=1386109463]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/MysteryBoxUI" unique_id=1977875270]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MysteryBoxUI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Mystery Box choose your prize
+click 1 2 or 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

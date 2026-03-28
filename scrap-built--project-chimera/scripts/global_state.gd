@@ -8,6 +8,7 @@ var player_max_energy: float = 100.0
 var player_speed_bonus: float = 0.0
 var scrap_count: int = 0
 var player_invincible = false
+var has_key: bool = false
 
 var inventory: Array[ItemData] = []
 var equipped_parts = {
@@ -22,6 +23,8 @@ signal hp_changed(new_val)
 signal max_hp_changed(new_val)
 signal energy_changed(new_val)
 signal scrap_changed(new_val)
+signal key_collected()
+signal inventory_changed()
 
 const DEFAULT_HEAD = preload("res://resources/parts/light_head.tres")
 const DEFAULT_TORSO = preload("res://resources/parts/light_torso.tres")
@@ -52,9 +55,31 @@ func add_scrap(amount: int):
     scrap_changed.emit(scrap_count)
     
 
+func collect_key():
+	has_key = true
+	key_collected.emit()
+	print("Key collected!")
+
+
+func consume_key():
+	has_key = false
+	print("Key consumed!")
+
+
 func add_to_inventory(item: ItemData):
-    inventory.append(item)
-    print("Item added to inventory: ", item.item_name)
+	if item == null: return
+	inventory.append(item)
+	inventory_changed.emit()
+	print("Item added to inventory: ", item.item_name)
+
+
+func remove_from_inventory(item_name: String):
+	for i in range(inventory.size()):
+		if inventory[i].item_name == item_name:
+			inventory.remove_at(i)
+			inventory_changed.emit()
+			return true
+	return false
 
 
 func equip_part(part: RobotPart):

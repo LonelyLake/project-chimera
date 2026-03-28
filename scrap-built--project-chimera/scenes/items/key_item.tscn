@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dnf6yk38ihrbd"]
+
+[ext_resource type="Script" uid="uid://buddynfbcldpl" path="res://scripts/items/key_item.gd" id="1_key_script"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_d54tt"]
+load_path = "res://.godot/imported/neo_zero_props_02_free.png-f2959e63eb83de93733b7b0f2beb4320.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_key"]
+radius = 8.0
+
+[node name="KeyItem" type="Area2D" unique_id=550753818]
+rotation = 0.07883456
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_key_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1285215831]
+position = Vector2(-3.5, 0)
+rotation = -2.8870764
+scale = Vector2(1.0364584, 1)
+texture = SubResource("CompressedTexture2D_d54tt")
+region_enabled = true
+region_rect = Rect2(18.957216, 49.827568, 11.87068, 11.870678)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2104326541]
+position = Vector2(-3.9875717, 0.3150053)
+rotation = 3.9851673
+shape = SubResource("CircleShape2D_key")
