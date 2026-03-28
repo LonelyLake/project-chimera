@@ -1,5 +1,6 @@
-[gd_scene format=3 uid="uid://cyww41exk637b"]
+[gd_scene load_steps=10 format=3 uid="uid://cyww41exk637b"]
 
+[ext_resource type="Script" path="res://scripts/player/shop_assistant.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://bofqftb74fvua" path="res://assets/sprites/other/0x72_16x16RobotTileset.v1.png" id="1_hlnid"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b81gm"]
@@ -40,7 +41,11 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dxw6t"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_interaction"]
+radius = 30.0
+
 [node name="Shop_assistant" type="CharacterBody2D" unique_id=167921447]
+script = ExtResource("1_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=3467528]
 sprite_frames = SubResource("SpriteFrames_s5f2l")
@@ -50,3 +55,13 @@ frame_progress = 0.086204514
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2028873846]
 position = Vector2(1, 4)
 shape = SubResource("CircleShape2D_dxw6t")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_interaction")
+
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]
