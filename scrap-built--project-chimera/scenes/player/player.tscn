@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cvctvv0cp3ot4"]
 
 [ext_resource type="Texture2D" uid="uid://dku6cr2trr7qw" path="res://assets/sprites/other/Full sprite sheet.png" id="1_8afob"]
+[ext_resource type="Script" uid="uid://n67styv28xat" path="res://scripts/player/player.gd" id="1_dovo2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwuka"]
 atlas = ExtResource("1_8afob")
@@ -506,14 +507,22 @@ height = 18.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_15tap"]
 radius = 19.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8afob"]
+radius = 23.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dovo2"]
+radius = 11.0
+height = 38.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1864995814 groups=["player"]]
 collision_layer = 2
 collision_mask = 21
 motion_mode = 1
+script = ExtResource("1_dovo2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1852653573]
 sprite_frames = SubResource("SpriteFrames_yj68g")
-animation = &"idle_down"
+animation = &"walk_right"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236060119]
@@ -530,3 +539,20 @@ shape = SubResource("CircleShape2D_15tap")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1170824870]
 zoom = Vector2(1.5, 1.5)
 position_smoothing_enabled = true
+
+[node name="HitZone" type="Area2D" parent="." unique_id=648192780]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitZone" unique_id=791833244]
+shape = SubResource("CircleShape2D_8afob")
+
+[node name="DashHitZone" type="Area2D" parent="." unique_id=62202566]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashHitZone" unique_id=942287235]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_dovo2")
