@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://blojx5sd2f87j"]
 
+[ext_resource type="FontFile" uid="uid://b8yala5xapump" path="res://assets/fonts/pixelFJ8pt1__.TTF" id="1_xkgtk"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ne15d"]
 bg_color = Color(0, 0, 0, 0.46666667)
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_vjf6u"]
+font = ExtResource("1_xkgtk")
 font_size = 8
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
@@ -86,10 +89,22 @@ _data = {
 &"popup": SubResource("Animation_8i7tu")
 }
 
-[node name="PopupLabel" type="Label" unique_id=1434570530]
+[node name="PopupRoot" type="Node2D" unique_id=1645547866]
+scale = Vector2(0.7, 0.7)
+
+[node name="Label" type="Label" parent="." unique_id=1434570530]
 texture_filter = 1
-offset_right = 132.0
-offset_bottom = 23.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -7.875
+offset_right = 81.0
+offset_bottom = 7.875
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_ne15d")
 text = "+ Item Name "
 label_settings = SubResource("LabelSettings_vjf6u")
@@ -98,5 +113,6 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=488071036]
+root_node = NodePath("../Label")
 libraries/ = SubResource("AnimationLibrary_gs723")
 autoplay = &"popup"

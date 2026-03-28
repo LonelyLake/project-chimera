@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RobotPart" format=3 uid="uid://qo2giquoptf"]
+
+[ext_resource type="Script" uid="uid://cslakhm8xjama" path="res://scripts/resources/robot_part.gd" id="1_soyn0"]
+[ext_resource type="Texture2D" uid="uid://d00wolg4g4nt0" path="res://resources/textures/parts/light_wheel_icon.tres" id="2_cveb6"]
+
+[resource]
+script = ExtResource("1_soyn0")
+type = 3
+speed_bonus = 30.0
+item_name = "Light wheels"
+texture = ExtResource("2_cveb6")
+metadata/_custom_type_script = "uid://cslakhm8xjama"

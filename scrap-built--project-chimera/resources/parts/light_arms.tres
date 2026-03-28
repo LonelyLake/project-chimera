@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RobotPart" format=3 uid="uid://d21mif08b6b1j"]
+
+[ext_resource type="Script" uid="uid://cslakhm8xjama" path="res://scripts/resources/robot_part.gd" id="1_3em1l"]
+
+[resource]
+script = ExtResource("1_3em1l")
+type = 2
+item_name = "Light arms"
+metadata/_custom_type_script = "uid://cslakhm8xjama"
