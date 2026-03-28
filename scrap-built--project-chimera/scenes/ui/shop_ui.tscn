@@ -1,0 +1,323 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5p0j8w2j8v"]
+
+[sub_resource type="GDScript" id="GDScript_shop"]
+script/source = "extends CanvasLayer
+
+signal shop_closed
+
+@onready var item_list = $Control/Panel/MarginContainer/VBoxContainer/ItemList
+@onready var description_label = $Control/Panel/MarginContainer/VBoxContainer/DescriptionLabel
+@onready var scrap_count_label = $Control/Panel/MarginContainer/VBoxContainer/ScrapCount
+
+var items = []
+var selected_index = 0
+
+func _ready():
+	hide()
+	# Definicja towarów: nazwa, opis, cena, atlas_path, region, typ efektu, wartość
+	add_shop_item(\"Battery\", \"Restores 20 energy\", 15, \"res://assets/sprites/items/items_sheet.png\", Rect2(160, 416, 16, 16), \"energy\", 20)
+	add_shop_item(\"Repair Kit\", \"Restores 25 HP\", 40, \"res://assets/sprites/other/0x72_16x16RobotTileset.v1.png\", Rect2(288, 16, 16, 16), \"hp\", 25)
+	add_shop_item(\"Light Head\", \"A fast robot head\", 100, \"res://assets/sprites/other/0x72_16x16RobotTileset.v1.png\", Rect2(0, 16, 16, 16), \"item\", 0)
+	update_ui()
+
+func add_shop_item(name, desc, price, atlas_path, region, type, val):
+	items.append({\"name\": name, \"desc\": desc, \"price\": price, \"atlas\": load(atlas_path), \"region\": region, \"type\": type, \"value\": val})
+
+func open():
+	show()
+	selected_index = 0
+	update_ui()
+	get_tree().get_first_node_in_group(\"player\").set_physics_process(false)
+
+func close():
+	hide()
+	get_tree().get_first_node_in_group(\"player\").set_physics_process(true)
+	shop_closed.emit()
+
+func _input(event):
+	if not visible: return
+	
+	if event.is_action_pressed(\"ui_up\"):
+		selected_index = max(0, selected_index - 1)
+		update_ui()
+	elif event.is_action_pressed(\"ui_down\"):
+		selected_index = min(items.size() - 1, selected_index + 1)
+		update_ui()
+	elif event.is_action_pressed(\"ui_accept\"):
+		buy_item()
+	elif event.is_action_pressed(\"ui_cancel\"):
+		close()
+
+func update_ui():
+	scrap_count_label.text = \"YOUR SCRAP: \" + str(GameManager.scrap_count)
+	for i in range(item_list.get_child_count()):
+		var child = item_list.get_child(i)
+		if i < items.size():
+			var item = items[i]
+			child.show()
+			var bg = child.get_node(\"ColorRect\")
+			if i == selected_index:
+				bg.color = Color(0.04, 0.87, 0.87, 0.3)
+				description_label.text = item.desc
+			else:
+				bg.color = Color(0, 0, 0, 0)
+			
+			var icon_rect = child.get_node(\"HBox/Icon\")
+			var atlas_tex = icon_rect.texture as AtlasTexture
+			if atlas_tex:
+				atlas_tex.atlas = item.atlas
+				atlas_tex.region = item.region
+				
+			child.get_node(\"HBox/Name\").text = item.name
+			child.get_node(\"HBox/Price\").text = str(item.price) + \" SC\"
+		else:
+			child.hide()
+
+func buy_item():
+	var item = items[selected_index]
+	if GameManager.scrap_count >= item.price:
+		GameManager.scrap_count -= item.price
+		GameManager.scrap_changed.emit(GameManager.scrap_count)
+		
+		match item.type:
+			\"hp\":
+				GameManager.repair_player(item.value)
+			\"energy\":
+				GameManager.restore_energy(item.value)
+			\"item\":
+				var res = load(\"res://resources/parts/light_head.tres\")
+				if res: GameManager.add_to_inventory(res)
+		
+		update_ui()
+	else:
+		description_label.text = \"NOT ENOUGH SCRAP!\"
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shop"]
+bg_color = Color(0, 0, 0, 0.862745)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0392157, 0.87451, 0.87451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 14
+font_color = Color(0.0392157, 0.87451, 0.87451, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_items"]
+load_path = "res://.godot/imported/items_sheet.png-66fb9ca60df6006006ed6006ed6006ed.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_item"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_items")
+region = Rect2(160, 416, 16, 16)
+
+[node name="ShopUI" type="CanvasLayer"]
+script = SubResource("GDScript_shop")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -100.0
+offset_right = 120.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_shop")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SCRAP SHOP"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ItemList" type="VBoxContainer" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Item1" type="Control" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="HBox" type="HBoxContainer" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item1/HBox"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_item")
+stretch_mode = 3
+
+[node name="Name" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item1/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "ITEM NAME"
+
+[node name="Price" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item1/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.913725, 0.905882, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "50 SC"
+
+[node name="Item2" type="Control" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="HBox" type="HBoxContainer" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item2/HBox"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_item")
+stretch_mode = 3
+
+[node name="Name" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item2/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "ITEM NAME"
+
+[node name="Price" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item2/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.913725, 0.905882, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "50 SC"
+
+[node name="Item3" type="Control" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="HBox" type="HBoxContainer" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item3/HBox"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_item")
+stretch_mode = 3
+
+[node name="Name" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item3/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "ITEM NAME"
+
+[node name="Price" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/ItemList/Item3/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.913725, 0.905882, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "50 SC"
+
+[node name="HSeparator2" type="HSeparator" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "ITEM DESCRIPTION GOES HERE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ScrapCount" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.913725, 0.905882, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "YOUR SCRAP: 0"
+horizontal_alignment = 1
+
+[node name="Instructions" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "[Arrows] Navigate | [Enter] Buy | [Esc] Close"
+horizontal_alignment = 1
