@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://i8p0j8w2j8v"]
+
+[ext_resource type="Script" uid="uid://bpio2ihpo1dxo" path="res://scripts/objects/portal.gd" id="1_por_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_por"]
+radius = 7.0
+
+[node name="Portal" type="Area2D" unique_id=748742253]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_por_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1987376409]
+self_modulate = Color(0, 0.87451, 0.87451, 1)
+region_enabled = true
+region_rect = Rect2(158.07858, 56.513657, 11.973709, 10.263176)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1072619108]
+shape = SubResource("CircleShape2D_por")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1968250437]
+
+[node name="PortalUI" type="Control" parent="CanvasLayer" unique_id=117826476]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bubble" type="Panel" parent="CanvasLayer/PortalUI" unique_id=1303316740]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 88.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PortalUI/Bubble" unique_id=1133228287]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "CHOOSE LEVEL
+[ENTER]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -52,7 +52,7 @@ func start_mystery_choice():
 	ui_container.show()
 	var type_name = BoxType.keys()[type].capitalize()
 	message_label.text = type_name + " Mystery Box\nChoose prize: 1, 2, 3\n[ESC] to cancel"
-	get_tree().get_first_node_in_group("player").set_physics_process(false)
+	GameManager.set_world_pause(true)
 
 func _input(event):
 	if is_waiting_for_input:
@@ -65,7 +65,7 @@ func _input(event):
 func cancel_choice():
 	is_waiting_for_input = false
 	ui_container.hide()
-	get_tree().get_first_node_in_group("player").set_physics_process(true)
+	GameManager.set_world_pause(false)
 
 func consume_and_reward(choice: int):
 	is_waiting_for_input = false
@@ -121,7 +121,7 @@ func give_reward(choice: int):
 	message_label.text = reward_text
 	await get_tree().create_timer(2.0).timeout
 	ui_container.hide()
-	get_tree().get_first_node_in_group("player").set_physics_process(true)
+	GameManager.set_world_pause(false)
 
 func spawn_popup(text: String):
 	var popup_scene = load("res://scenes/ui/popup_label.tscn")

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://j8p0j8w2j8v"]
+
+[sub_resource type="GDScript" id="GDScript_return"]
+script/source = "extends Node
+func _input(event):
+	if event.is_action_pressed(\"ui_cancel\"):
+		get_tree().change_scene_to_file(\"res://scenes/levels/hub.tscn\")
+"
+
+[node name="EmptyLevel" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -11.5
+offset_right = 100.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "NEW LEVEL (EMPTY)
+[ESC] TO RETURN TO HUB"
+horizontal_alignment = 1
+
+[node name="ReturnScript" type="Node" parent="."]
+script = SubResource("GDScript_return")

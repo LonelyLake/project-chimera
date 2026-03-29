@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://g8p0j8w2j8v"]
+
+[ext_resource type="Script" uid="uid://c78g8wibncmnf" path="res://scripts/objects/exit_door.gd" id="1_exit_script"]
+[ext_resource type="Texture2D" uid="uid://daox82d7m0pc7" path="res://assets/sprites/neo_zero/neo_zero_props_02_free.png" id="2_exit_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bubble"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="ExitDoor" type="Area2D" unique_id=456279752]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_exit_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=437240678]
+texture = ExtResource("2_exit_texture")
+region_enabled = true
+region_rect = Rect2(160, 48, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1890928453]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1026292872]
+
+[node name="ExitUI" type="Control" parent="CanvasLayer" unique_id=1405306423]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bubble" type="Panel" parent="CanvasLayer/ExitUI" unique_id=878580407]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 88.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bubble")
+
+[node name="Label" type="Label" parent="CanvasLayer/ExitUI/Bubble" unique_id=1815408128]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -1.0
+offset_right = -2.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "Exit the game?
+[Y] / [N]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

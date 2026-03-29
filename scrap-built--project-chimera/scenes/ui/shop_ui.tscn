@@ -29,13 +29,11 @@ func open():
 	selected_index = 0
 	update_ui()
 	update_inventory()
-	get_tree().get_first_node_in_group(\"player\").set_physics_process(false)
+	GameManager.set_world_pause(true)
 
 func close():
 	hide()
-	var player = get_tree().get_first_node_in_group(\"player\") if get_tree() else null
-	if player:
-		player.set_physics_process(true)
+	GameManager.set_world_pause(false)
 	shop_closed.emit()
 
 func _input(event):
@@ -107,7 +105,7 @@ func buy_item():
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shop"]
-bg_color = Color(0, 0, 0, 0.862745)
+bg_color = Color(0, 0, 0, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -131,7 +129,7 @@ atlas = SubResource("CompressedTexture2D_items")
 region = Rect2(160, 416, 16, 16)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edxql"]
-bg_color = Color(0, 0, 0, 0.5882353)
+bg_color = Color(0, 0, 0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1

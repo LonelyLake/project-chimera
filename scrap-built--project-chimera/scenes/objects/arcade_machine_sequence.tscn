@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://1kld5t6vs6t3"]
+
+[ext_resource type="Script" uid="uid://c8qw8y4khkagh" path="res://scripts/objects/arcade_machine_sequence.gd" id="1_seq_script"]
+[ext_resource type="Texture2D" uid="uid://daox82d7m0pc7" path="res://assets/sprites/neo_zero/neo_zero_props_02_free.png" id="2_arcade_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arcade"]
+size = Vector2(14, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87451, 0.0392157, 0.87451, 1)
+
+[node name="ArcadeMachineSequence" type="Area2D" unique_id=339813305]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_seq_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=871490547]
+texture = ExtResource("2_arcade_texture")
+region_enabled = true
+region_rect = Rect2(112.81802, 16.54936, 14.123863, 23.638277)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1744806261]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_arcade")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1152548399]
+
+[node name="MinigameUI" type="Control" parent="CanvasLayer" unique_id=75829558]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="CanvasLayer/MinigameUI" unique_id=757648197]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -60.0
+offset_right = 110.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/MinigameUI/Background" unique_id=1857086665]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 5.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.87451, 0.0392157, 0.87451, 1)
+text = "MEMORY SEQUENCE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Grid" type="Control" parent="CanvasLayer/MinigameUI/Background" unique_id=1740935637]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -30.0
+offset_right = 40.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Up" type="ColorRect" parent="CanvasLayer/MinigameUI/Background/Grid" unique_id=167468113]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -10.0
+offset_top = 5.0
+offset_right = 10.0
+offset_bottom = 25.0
+grow_horizontal = 2
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Down" type="ColorRect" parent="CanvasLayer/MinigameUI/Background/Grid" unique_id=925990191]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -25.0
+offset_right = 10.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Left" type="ColorRect" parent="CanvasLayer/MinigameUI/Background/Grid" unique_id=893867515]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -10.0
+offset_right = 25.0
+offset_bottom = 10.0
+grow_vertical = 2
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Right" type="ColorRect" parent="CanvasLayer/MinigameUI/Background/Grid" unique_id=539067184]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -10.0
+offset_right = -5.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="InstructionLabel" type="Label" parent="CanvasLayer/MinigameUI/Background" unique_id=1626846066]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -25.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "USE [W,A,S,D] OR ARROWS / [ESC] TO EXIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
