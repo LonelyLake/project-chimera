@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://cn2p2qnsw6sfi"]
 
-[ext_resource type="Script" path="res://scripts/objects/arcade_machine_logic.gd" id="1_log_script"]
 [ext_resource type="Texture2D" uid="uid://daox82d7m0pc7" path="res://assets/sprites/neo_zero/neo_zero_props_02_free.png" id="2_arcade_texture"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arcade"]
@@ -17,7 +16,6 @@ border_color = Color(1, 0.843137, 0, 1)
 [node name="ArcadeMachineLogic" type="Area2D" unique_id=269753057]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("1_log_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1772078037]
 texture = ExtResource("2_arcade_texture")
