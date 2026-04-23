@@ -2,10 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://c0l610ba7tqeq" path="res://scenes/ui/inventory_screen.tscn" id="1_f5cxw"]
 [ext_resource type="PackedScene" uid="uid://carmw8nujyufe" path="res://scenes/ui/hud.tscn" id="2_aac20"]
+[ext_resource type="PackedScene" uid="uid://cegvspq1thlwf" path="res://scenes/ui/game_over.tscn" id="3_aac20"]
 
 [node name="UI" type="Node" unique_id=25869540]
 process_mode = 3
 
 [node name="InventoryScreen" parent="." unique_id=699420372 instance=ExtResource("1_f5cxw")]
+visible = false
 
 [node name="HUD" parent="." unique_id=870667695 instance=ExtResource("2_aac20")]
+
+[node name="GameOver" parent="." unique_id=688029975 instance=ExtResource("3_aac20")]
+visible = false

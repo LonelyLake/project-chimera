@@ -322,7 +322,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt_down",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -342,7 +342,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt_right",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -362,7 +362,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt_up",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -523,7 +523,7 @@ script = ExtResource("1_dovo2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1852653573]
 sprite_frames = SubResource("SpriteFrames_yj68g")
-animation = &"walk_right"
+animation = &"hurt_down"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236060119]

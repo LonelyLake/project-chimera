@@ -7,6 +7,7 @@ var is_attacking = false
 var is_knockback = false
 var is_invincible = false
 var is_dashing = false
+var is_dead = false
 var knockback_velocity = Vector2.ZERO
 
 var dash_speed = 400.0
@@ -22,18 +23,22 @@ var energy_regen_rate = 10.0
 func _ready():
     hit_zone.body_entered.connect(_on_hit_zone_entered)
     $DashHitZone.body_entered.connect(_on_dash_hit_zone_entered)
+    GameManager.player_died.connect(_on_player_died)
 
 
 
 func _physics_process(delta: float) -> void:
+    if is_dead:
+        if is_knockback:
+            _process_knockback()
+        move_and_slide()
+        return
+    
     if GameManager.player_energy < GameManager.player_max_energy:
         GameManager.restore_energy(energy_regen_rate * delta)
     
     if is_knockback:
-        velocity = knockback_velocity
-        knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 0.2)
-        if knockback_velocity.length() < 5:
-            is_knockback = false
+        _process_knockback()
         move_and_slide()
         return
     
@@ -83,11 +88,29 @@ func update_animation(dir: Vector2):
 func apply_knockback(from_position: Vector2):
     if GameManager.player_invincible:
         return
+    
+    if last_direction == "left":
+        anim.flip_h = true
+        anim.play("hurt_right")
+    else:
+        anim.flip_h = false
+        anim.play("hurt_" + last_direction)
+    
     GameManager.player_invincible = true
     is_knockback = true
     knockback_velocity = (global_position - from_position).normalized() * 200.0
+    
     await get_tree().create_timer(1.0).timeout
+    if not GameManager.player_hp <= 0:
+        anim.modulate.a = 1.0
     GameManager.player_invincible = false
+
+
+func _process_knockback():
+    velocity = knockback_velocity
+    knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 0.2)
+    if knockback_velocity.length() < 5:
+        is_knockback = false
 
 
 func _perform_attack():
@@ -213,3 +236,13 @@ func _on_dash_hit_zone_entered(body):
     if body.is_in_group("enemy"):
         body.apply_knockback(global_position)
         body.take_damage(_get_attack_damage() * 2)
+
+
+func _on_player_died():
+    is_dead = true
+    var tween = create_tween()
+    tween.tween_property(anim, "modulate:a", 0.0, 0.8)
+    await get_tree().create_timer(0.8).timeout
+    get_tree().get_root().get_node("Game/UI/GameOver").show()
+    get_tree().paused = true
+    
