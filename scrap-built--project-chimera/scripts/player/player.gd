@@ -174,11 +174,9 @@ func _perform_dash():
 
 
 func _on_hit_zone_entered(body):
-    print("hit zone touched: ", body.name)
     if body.is_in_group("enemy"):
-        print("enemy hit!")
-        body.apply_knockback(global_position)
         body.take_damage(_get_attack_damage())
+        body.apply_knockback(global_position)
 
 
 func _get_attack_damage() -> int:

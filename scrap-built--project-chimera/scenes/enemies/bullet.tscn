@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://dk8ccgfi0ycy6"]
+
+[ext_resource type="Script" uid="uid://b21k45i48t0ip" path="res://scripts/enemies/bullet.gd" id="1_15gq6"]
+[ext_resource type="Texture2D" uid="uid://cjj1fv3wd1wut" path="res://assets/sprites/enemies/tank_droid/Droid03Bullet.png" id="1_p5aa7"]
+[ext_resource type="Texture2D" uid="uid://v42vfc5xypxu" path="res://assets/sprites/enemies/tank_droid/Droid03Impact.png" id="2_15gq6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncsv3"]
+atlas = ExtResource("1_p5aa7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4skmf"]
+atlas = ExtResource("1_p5aa7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvo23"]
+atlas = ExtResource("1_p5aa7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfsv7"]
+atlas = ExtResource("2_15gq6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5f5ym"]
+atlas = ExtResource("2_15gq6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8b5g"]
+atlas = ExtResource("2_15gq6")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqgky"]
+atlas = ExtResource("2_15gq6")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qehun"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncsv3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4skmf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvo23")
+}],
+"loop": true,
+"name": &"bullet",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfsv7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5f5ym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8b5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqgky")
+}],
+"loop": false,
+"name": &"impact",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dupnq"]
+radius = 5.0
+
+[node name="Bullet" type="Area2D" unique_id=798920796]
+collision_layer = 32
+collision_mask = 3
+script = ExtResource("1_15gq6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=350156246]
+sprite_frames = SubResource("SpriteFrames_qehun")
+animation = &"bullet"
+frame_progress = 0.6083302
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=870835913]
+shape = SubResource("CircleShape2D_dupnq")

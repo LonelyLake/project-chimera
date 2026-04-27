@@ -30,10 +30,19 @@ func _update_path(target: Vector2):
     if not nav_agent.is_navigation_finished():
         var next_point = nav_agent.get_next_path_position()
         var direction = (next_point - global_position).normalized()
-        velocity = direction * speed
-        anim.flip_h = direction.x > 0
+        
+        var separation = Vector2.ZERO
+        var neighbors = $DetectionZone.get_overlapping_bodies()
+        for body in neighbors:
+            if body.is_in_group("enemy") and body != self:
+                var diff = global_position - body.global_position
+                if diff.length() < 24:
+                    separation += diff.normalized()
+        
+        var final_direction = (direction + separation * 0.8).normalized()
+        velocity = final_direction * speed
+        anim.flip_h = velocity.x > 0
         anim.play("move")
-
 
 func _state_idle():
     velocity = Vector2.ZERO
@@ -102,12 +111,6 @@ func die():
     $CollisionShape2D.set_deferred("disabled", true)
     attack_zone.monitoring = false
     detection_zone.monitoring = false
-    
-    var knockback = knockback_direction * 200.0
-    velocity = knockback
-    await get_tree().create_timer(0.15).timeout
-    
-    velocity = Vector2.ZERO
     anim.play("death")
     await anim.animation_finished
     queue_free()
@@ -119,6 +122,9 @@ func take_damage(amount: int):
     hp -= amount
     if hp <= 0:
         is_dying = true
+        anim.play("hurt")
+        velocity = knockback_direction * 200.0
+        await anim.animation_finished
         die()
     else:
         anim.play("hurt")

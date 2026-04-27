@@ -21,6 +21,7 @@ var is_dying = false
 
 func _physics_process(delta):
     if is_dying:
+        velocity = velocity.lerp(Vector2.ZERO, 0.1)
         move_and_slide()
         return
     
@@ -110,7 +111,11 @@ func die():
 func on_player_entered(body):
     if body.is_in_group("player"):
         player = body
-        change_state(State.CHASE)
+        change_state(_get_initial_state())
+        
+
+func _get_initial_state() -> State:
+    return State.CHASE
 
 
 func on_player_exited(body):
