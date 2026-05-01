@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://bwmorbkat1sw3"]
+
+[ext_resource type="Texture2D" uid="uid://dgw4ont1dgrfu" path="res://assets/sprites/enemies/flying_droid/Droid01Death.png" id="1_p0kc6"]
+[ext_resource type="Texture2D" uid="uid://cwxptto7vujm2" path="res://assets/sprites/enemies/flying_droid/Droid01Hurt.png" id="2_phsxw"]
+[ext_resource type="Texture2D" uid="uid://b3pr47faa631h" path="res://assets/sprites/enemies/flying_droid/Droid01Idle.png" id="3_2m8xl"]
+[ext_resource type="Texture2D" uid="uid://cjgfeulwod8dp" path="res://assets/sprites/enemies/flying_droid/Droid01Move.png" id="4_27vc1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_at13k"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qih0g"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qkrm"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3g47"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qj8g2"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndkcd"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40gbt"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpjeo"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_581tw"]
+atlas = ExtResource("1_p0kc6")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7hog"]
+atlas = ExtResource("2_phsxw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0xeq"]
+atlas = ExtResource("2_phsxw")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uxay"]
+atlas = ExtResource("2_phsxw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb8x6"]
+atlas = ExtResource("3_2m8xl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahkih"]
+atlas = ExtResource("3_2m8xl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ls0kv"]
+atlas = ExtResource("3_2m8xl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ekae"]
+atlas = ExtResource("3_2m8xl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3wpq"]
+atlas = ExtResource("4_27vc1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfmbo"]
+atlas = ExtResource("4_27vc1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oywl"]
+atlas = ExtResource("4_27vc1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymdom"]
+atlas = ExtResource("4_27vc1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1o71s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_at13k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qih0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qkrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3g47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qj8g2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndkcd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40gbt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpjeo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_581tw")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7hog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0xeq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4uxay")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb8x6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahkih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ls0kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ekae")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3wpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfmbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oywl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymdom")
+}],
+"loop": true,
+"name": &"move",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2r06k"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0uhpl"]
+radius = 18.0
+
+[node name="PatrolEnemy" type="CharacterBody2D" unique_id=176844455]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=209645594]
+sprite_frames = SubResource("SpriteFrames_1o71s")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.4375571
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1640791066]
+shape = SubResource("CircleShape2D_2r06k")
+
+[node name="VisionCone" type="Area2D" parent="." unique_id=1822408360]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=457922717]
+position = Vector2(-56, -3)
+scale = Vector2(1.5, 1.5)
+polygon = PackedVector2Array(-18, -13, -24, -8, -27, -3, -28, 4, -27, 11, -24, 17, -18, 20, 37, 3)
+
+[node name="AttackZone" type="Area2D" parent="." unique_id=702045893]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone" unique_id=2003257729]
+shape = SubResource("CircleShape2D_0uhpl")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=90636084]
+
+[node name="AttackCooldown" type="Timer" parent="." unique_id=40177918]
+one_shot = true
+
+[node name="KnockbackTimer" type="Timer" parent="." unique_id=1355291389]

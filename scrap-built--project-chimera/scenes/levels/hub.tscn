@@ -839,7 +839,7 @@ z_index = 2
 position = Vector2(185, 65)
 
 [node name="ShooterEnemy" parent="Enemies" unique_id=910157965 instance=ExtResource("12_x65ym")]
-position = Vector2(158, -106)
+position = Vector2(186, 104)
 
 [node name="ExitDoor" parent="." unique_id=2020612899 instance=ExtResource("18_exit")]
 position = Vector2(203, 154)
@@ -910,3 +910,14 @@ metadata/_edit_group_ = true
 
 [node name="Shop_assistant" parent="NPC" unique_id=33730184 instance=ExtResource("2_ysqli")]
 position = Vector2(110, -161)
+
+[node name="Waypoints" type="Node2D" parent="." unique_id=130132278]
+
+[node name="Waypoint1" type="Marker2D" parent="Waypoints" unique_id=1921835632]
+position = Vector2(42, -118)
+
+[node name="Waypoint2" type="Marker2D" parent="Waypoints" unique_id=816180961]
+position = Vector2(182, -118)
+
+[node name="Waypoint3" type="Marker2D" parent="Waypoints" unique_id=1605701623]
+position = Vector2(113, -66)
