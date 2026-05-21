@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://powergen123"]
+
+[ext_resource type="Script" uid="uid://bt6qgkkqprmol" path="res://scripts/objects/minigames/power_generator.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://daox82d7m0pc7" path="res://assets/sprites/neo_zero/neo_zero_props_02_free.png" id="2_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pg"]
+size = Vector2(12.75, 22)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prog_bg"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prog_fg"]
+bg_color = Color(0.8, 0.8, 0.1, 1)
+
+[node name="PowerGenerator" type="Area2D" unique_id=813749356]
+position = Vector2(-28, -29)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=83848108]
+position = Vector2(-20, -11)
+texture = ExtResource("2_texture")
+region_enabled = true
+region_rect = Rect2(129.39641, 16.345232, 13.769989, 23.741358)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1307932341]
+position = Vector2(-20, -11)
+shape = SubResource("RectangleShape2D_pg")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=692335620]
+position = Vector2(-20, -12)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=593760060]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_pg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=833153829]
+
+[node name="MinigameUI" type="Control" parent="CanvasLayer" unique_id=2145262433]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="CanvasLayer/MinigameUI" unique_id=444708217]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -60.0
+offset_right = 100.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/MinigameUI/Background" unique_id=1906578716]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 30.0
+grow_horizontal = 2
+text = "MASH [SPACE] TO GENERATE POWER!"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/MinigameUI/Background" unique_id=171161852]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 30.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = "TIME: 4.0"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/MinigameUI/Background" unique_id=2142887101]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_prog_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_prog_fg")
+show_percentage = false

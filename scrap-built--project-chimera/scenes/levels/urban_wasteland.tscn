@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://hniuylfihj8d"]
+
+[ext_resource type="Script" uid="uid://cgmrthyfh8h68" path="res://scripts/levels/urban_wasteland.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://cvctvv0cp3ot4" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://bd2qd25rof4m2" path="res://scenes/enemies/melee_enemy.tscn" id="3_melee"]
+[ext_resource type="PackedScene" uid="uid://b5xfobta1oo11" path="res://scenes/enemies/shooter_enemy.tscn" id="4_shooter"]
+[ext_resource type="PackedScene" uid="uid://b2p0j8w2j8v" path="res://scenes/ui/world_label.tscn" id="5_label"]
+[ext_resource type="PackedScene" uid="uid://bystgchiaxveb" path="res://scenes/ui/ui.tscn" id="6_ui"]
+[ext_resource type="PackedScene" uid="uid://powergen123" path="res://scenes/objects/minigames/power_generator.tscn" id="7_power"]
+[ext_resource type="PackedScene" uid="uid://sysstab123" path="res://scenes/objects/minigames/system_stabilizer.tscn" id="8_stab"]
+[ext_resource type="PackedScene" uid="uid://datadodger123" path="res://scenes/objects/minigames/data_dodger.tscn" id="9_dodge"]
+[ext_resource type="PackedScene" uid="uid://i8p0j8w2j8v" path="res://scenes/objects/portal.tscn" id="10_portal"]
+
+[node name="UrbanWasteland" type="Node2D" unique_id=1522363476]
+y_sort_enabled = true
+script = ExtResource("1_script")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=49962039]
+
+[node name="Floor" type="TileMapLayer" parent="NavigationRegion2D" unique_id=1514273701]
+z_index = -1
+
+[node name="Walls" type="TileMapLayer" parent="NavigationRegion2D" unique_id=1798572748]
+
+[node name="WallCollision" type="StaticBody2D" parent="." unique_id=1396904878]
+
+[node name="Player" parent="." unique_id=768204008 instance=ExtResource("2_player")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(40, -8)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=346744089]
+z_index = 2
+
+[node name="MeleeEnemy" parent="Enemies" unique_id=416565178 instance=ExtResource("3_melee")]
+position = Vector2(200, -40)
+
+[node name="ShooterEnemy" parent="Enemies" unique_id=1928345215 instance=ExtResource("4_shooter")]
+position = Vector2(216, -104)
+
+[node name="ShooterEnemy2" parent="Enemies" unique_id=2042133162 instance=ExtResource("4_shooter")]
+position = Vector2(56, -152)
+
+[node name="Labels" type="Node2D" parent="." unique_id=1838008336]
+
+[node name="LevelLabel" parent="Labels" unique_id=1597349283 instance=ExtResource("5_label")]
+position = Vector2(120, -186)
+text = "URBAN WASTELAND"
+color = Color(1, 0.4, 0.1, 1)
+
+[node name="UI" parent="." unique_id=1384033418 instance=ExtResource("6_ui")]
+
+[node name="Minigames" type="Node2D" parent="." unique_id=1152461970]
+y_sort_enabled = true
+
+[node name="PowerGenerator" parent="Minigames" unique_id=1229101174 instance=ExtResource("7_power")]
+position = Vector2(33, -122)
+
+[node name="SystemStabilizer" parent="Minigames" unique_id=643229410 instance=ExtResource("8_stab")]
+position = Vector2(232, -40)
+
+[node name="DataDodger" parent="Minigames" unique_id=872724352 instance=ExtResource("9_dodge")]
+position = Vector2(40, -40)
+
+[node name="Portal" parent="." unique_id=1837242413 instance=ExtResource("10_portal")]
+position = Vector2(240, -180)
+required_keys = 3
