@@ -178,12 +178,19 @@ radius = 18.0
 [node name="PatrolEnemy" type="CharacterBody2D" unique_id=176844455 groups=["enemy"]]
 collision_layer = 4
 collision_mask = 7
-motion_mode = 1
 script = ExtResource("1_phsxw")
+waypoints = null
+patrol_speed = null
+hp = null
+speed = null
+damage = null
+scrap_reward = null
+attack_range = null
+update_path_interval = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=209645594]
 sprite_frames = SubResource("SpriteFrames_1o71s")
-animation = &"move"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1640791066]
@@ -194,8 +201,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=457922717]
-position = Vector2(55, 4)
-rotation = -3.1415927
+position = Vector2(-56, -3)
 scale = Vector2(1.5, 1.5)
 polygon = PackedVector2Array(-18, -13, -24, -8, -27, -3, -28, 4, -27, 11, -24, 17, -18, 20, 37, 3)
 

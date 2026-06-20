@@ -1,7 +1,7 @@
 class_name Enemy
 extends CharacterBody2D
 
-enum State { IDLE, CHASE, SEARCH, ATTACK, KNOCKBACK }
+enum State { IDLE, CHASE, SEARCH, ATTACK, KNOCKBACK, PATROL }
 
 @export var hp: int = 30
 @export var speed: float = 60.0
@@ -38,6 +38,8 @@ func _physics_process(delta):
             _state_attack()
         State.KNOCKBACK:
             _state_knockback()
+        State.PATROL:
+            _state_patrol()
     
     move_and_slide()
 
@@ -76,6 +78,10 @@ func _state_search():
 
 func _state_attack():
     velocity = Vector2.ZERO
+
+
+func _state_patrol():
+    pass
 
 
 func _update_path(target: Vector2):
@@ -122,4 +128,4 @@ func on_player_exited(body):
     if body.is_in_group("player"):
         player = null
         if current_state == State.CHASE:
-            change_state(State.SEARCH)
+            change_state(State.SEARCH)         

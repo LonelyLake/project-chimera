@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://cwir5hl6vxxc8" path="res://resources/consumable/rename_battery.tres" id="9_x0xvm"]
 [ext_resource type="PackedScene" uid="uid://bd2qd25rof4m2" path="res://scenes/enemies/melee_enemy.tscn" id="12_pu6vg"]
 [ext_resource type="PackedScene" uid="uid://b5xfobta1oo11" path="res://scenes/enemies/shooter_enemy.tscn" id="12_x65ym"]
+[ext_resource type="PackedScene" uid="uid://bwmorbkat1sw3" path="res://scenes/enemies/patrol_enemy.tscn" id="13_5argd"]
 [ext_resource type="PackedScene" uid="uid://b8p0j8w2j8v" path="res://scenes/objects/mystery_box.tscn" id="13_box"]
 [ext_resource type="PackedScene" uid="uid://c8p0j8w2j8v" path="res://scenes/objects/arcade_machine.tscn" id="14_arcade"]
 [ext_resource type="PackedScene" uid="uid://b2p0j8w2j8v" path="res://scenes/ui/world_label.tscn" id="15_world_label"]
@@ -840,6 +841,10 @@ position = Vector2(185, 65)
 
 [node name="ShooterEnemy" parent="Enemies" unique_id=910157965 instance=ExtResource("12_x65ym")]
 position = Vector2(186, 104)
+
+[node name="PatrolEnemy" parent="Enemies" unique_id=176844455 instance=ExtResource("13_5argd")]
+position = Vector2(160, -106)
+waypoints = Array[NodePath]([NodePath("../../Waypoints/Waypoint1"), NodePath("../../Waypoints/Waypoint2"), NodePath("../../Waypoints/Waypoint3")])
 
 [node name="ExitDoor" parent="." unique_id=2020612899 instance=ExtResource("18_exit")]
 position = Vector2(203, 154)
