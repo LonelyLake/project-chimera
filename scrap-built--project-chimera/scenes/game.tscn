@@ -7,7 +7,9 @@
 [node name="Game" type="Node2D" unique_id=254877117]
 script = ExtResource("1_lnu2h")
 
-[node name="Hub" parent="." unique_id=1526646529 instance=ExtResource("1_uwrxv")]
+[node name="LevelContainer" type="Node2D" parent="." unique_id=873016109]
+
+[node name="Hub" parent="LevelContainer" unique_id=1526646529 instance=ExtResource("1_uwrxv")]
 position = Vector2(6, 3)
 
 [node name="UI" parent="." unique_id=25869540 instance=ExtResource("2_yqjtg")]

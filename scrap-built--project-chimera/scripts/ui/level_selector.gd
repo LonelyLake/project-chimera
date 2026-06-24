@@ -4,6 +4,7 @@ signal level_selected(level_index)
 
 @onready var preview_rect = $Control/Panel/Preview
 @onready var level_label = $Control/Panel/LevelName
+@export var level_container: Node2D
 
 var current_level = 1
 var max_levels = 3
@@ -54,10 +55,32 @@ func update_display():
 
 func confirm_selection():
     level_selected.emit(current_level)
+    
     var level_paths = {
-        1: "res://scenes/levels/urban_wasteland.tscn",
+        1: "res://scenes/levels/factory.tscn",
         2: "res://scenes/levels/empty_level.tscn",
         3: "res://scenes/levels/empty_level.tscn",
     }
-    get_tree().change_scene_to_file(level_paths[current_level])
+    
+    # 1. Находим главный узел Game, кем бы ни был родитель этого меню
+    var main_game_root = get_tree().current_scene
+    
+    # 2. Ищем в нем наш LevelContainer
+    var level_container = main_game_root.get_node_or_null("LevelContainer")
+    
+    if level_container:
+        # Чистим старый уровень (Хаб вместе с этим порталом и этим же меню)
+        for child in level_container.get_children():
+            child.queue_free()
+            
+        # Загружаем Фабрику
+        var new_level_scene = load(level_paths[current_level])
+        if new_level_scene:
+            var new_level_instance = new_level_scene.instantiate()
+            level_container.add_child(new_level_instance)
+    else:
+        # Если вдруг LevelContainer не найден, используем старый метод знакомого как запасной
+        get_tree().change_scene_to_file(level_paths[current_level])
+        
     GameManager.set_world_pause(false)
+    close()

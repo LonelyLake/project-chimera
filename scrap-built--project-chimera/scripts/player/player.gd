@@ -88,6 +88,9 @@ func update_animation(dir: Vector2):
 func apply_knockback(from_position: Vector2):
     if GameManager.player_invincible:
         return
+        
+    is_knockback = true
+    knockback_velocity = (global_position - from_position).normalized() * 200.0
     
     if last_direction == "left":
         anim.flip_h = true
@@ -95,12 +98,13 @@ func apply_knockback(from_position: Vector2):
     else:
         anim.flip_h = false
         anim.play("hurt_" + last_direction)
+        
+    await get_tree().process_frame
     
     GameManager.player_invincible = true
-    is_knockback = true
-    knockback_velocity = (global_position - from_position).normalized() * 200.0
     
-    await get_tree().create_timer(1.0).timeout
+    await get_tree().create_timer(0.3).timeout
+    
     if not GameManager.player_hp <= 0:
         anim.modulate.a = 1.0
     GameManager.player_invincible = false

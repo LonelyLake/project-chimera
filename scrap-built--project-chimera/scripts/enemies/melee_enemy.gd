@@ -10,12 +10,13 @@ var is_attacking = false
 @onready var knockback_timer = $KnockbackTimer
 @onready var attack_zone = $AttackZone
 
-
 func _ready():
     detection_zone.body_entered.connect(on_player_entered)
     detection_zone.body_exited.connect(on_player_exited)
     
     anim.frame_changed.connect(_on_frame_changed)
+    # Безопасное управление окончанием анимаций через сигнал движка:
+    anim.animation_finished.connect(_on_animation_finished)
     
     attack_cooldown.wait_time = 1.5
     knockback_timer.wait_time = 0.3
@@ -23,6 +24,11 @@ func _ready():
     
     attack_zone.monitoring = true
 
+# Перехватываем смену состояний: если врага прервали во время атаки, сбрасываем флаг флаг атаки
+func change_state(new_state: State):
+    if current_state == State.ATTACK and new_state != State.ATTACK:
+        is_attacking = false
+    super.change_state(new_state)
 
 func _update_path(target: Vector2):
     nav_agent.target_position = target
@@ -42,19 +48,22 @@ func _update_path(target: Vector2):
         var final_direction = (direction + separation * 0.8).normalized()
         velocity = final_direction * speed
         anim.flip_h = velocity.x > 0
-        anim.play("move")
+        
+        # Запускаем бег только если не заняты атакой или получением урона
+        if current_state == State.CHASE and anim.animation != "move":
+            anim.play("move")
 
 func _state_idle():
     velocity = Vector2.ZERO
-    anim.play("idle")
-
+    if anim.animation != "idle" and not is_attacking:
+        anim.play("idle")
 
 func _state_attack():
     velocity = Vector2.ZERO
     
     if is_attacking:
         return
-    
+        
     if player == null:
         change_state(State.SEARCH)
         return
@@ -68,63 +77,66 @@ func _state_attack():
         is_attacking = true
         anim.play("attack")
         attack_cooldown.start()
-
-        await anim.animation_finished
-        is_attacking = false
     else:
-        anim.play("idle")
-    
-    
+        if anim.animation != "idle":
+            anim.play("idle")
+
 func _on_frame_changed():
     if anim.animation == "attack" and anim.frame == 2:
         if attack_zone.monitoring:
             _check_hit()
-
 
 func _check_hit():
     var bodies = attack_zone.get_overlapping_bodies()
     for body in bodies:
         if body.is_in_group("player"):
             GameManager.take_damage(damage)
-            body.apply_knockback(global_position)
-            
-            
+            if body.has_method("apply_knockback"):
+                body.apply_knockback(global_position)
+
 func _state_knockback():
     velocity = knockback_direction * 150.0
-    anim.play("hurt")
-
+    # Проверка, чтобы не перезапускать анимацию боли каждый кадр:
+    if anim.animation != "hurt":
+        anim.play("hurt")
 
 func _on_knockback_finished():
     change_state(State.CHASE)
 
-
 func apply_knockback(from_position: Vector2, force: float = 150.0):
+    if is_dying: return
     knockback_direction = (global_position - from_position).normalized()
     change_state(State.KNOCKBACK)
     knockback_timer.start()  
 
+func _on_animation_finished():
+    # Вместо забагованных await используем безопасный обработчик сигналов
+    if anim.animation == "attack":
+        is_attacking = false
+        if current_state == State.ATTACK:
+            anim.play("idle")
+    elif anim.animation == "death":
+        queue_free()
 
 func die():
+    if is_dying: return
     is_dying = true
     velocity = Vector2.ZERO
     GameManager.add_scrap(scrap_reward)
+    
+    # Безопасное отключение физики
     $CollisionShape2D.set_deferred("disabled", true)
-    attack_zone.monitoring = false
-    detection_zone.monitoring = false
+    attack_zone.set_deferred("monitoring", false)
+    detection_zone.set_deferred("monitoring", false)
+    
     anim.play("death")
-    await anim.animation_finished
-    queue_free()
-
 
 func take_damage(amount: int):
     if is_dying:
         return
     hp -= amount
     if hp <= 0:
-        is_dying = true
-        anim.play("hurt")
-        velocity = knockback_direction * 200.0
-        await anim.animation_finished
         die()
     else:
-        anim.play("hurt")
+        # Если выжил — включаем отбрасывание, оно само включит анимацию боли
+        apply_knockback(player.global_position if player else global_position)

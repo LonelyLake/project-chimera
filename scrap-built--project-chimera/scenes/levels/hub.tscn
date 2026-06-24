@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dl0uori2olh8e" path="res://scenes/items/scrap_item.tscn" id="5_ysqli"]
 [ext_resource type="Resource" uid="uid://d14t7e1513i5x" path="res://resources/parts/heavy_wheel.tres" id="6_ysqli"]
 [ext_resource type="Resource" uid="uid://cwir5hl6vxxc8" path="res://resources/consumable/rename_battery.tres" id="9_x0xvm"]
-[ext_resource type="PackedScene" uid="uid://bd2qd25rof4m2" path="res://scenes/enemies/melee_enemy.tscn" id="12_pu6vg"]
 [ext_resource type="PackedScene" uid="uid://b5xfobta1oo11" path="res://scenes/enemies/shooter_enemy.tscn" id="12_x65ym"]
 [ext_resource type="PackedScene" uid="uid://bwmorbkat1sw3" path="res://scenes/enemies/patrol_enemy.tscn" id="13_5argd"]
 [ext_resource type="PackedScene" uid="uid://b8p0j8w2j8v" path="res://scenes/objects/mystery_box.tscn" id="13_box"]
@@ -830,14 +829,10 @@ item_data = ExtResource("9_x0xvm")
 
 [node name="Player" parent="." unique_id=1864995814 instance=ExtResource("1_vxnch")]
 z_index = 1
-y_sort_enabled = true
 position = Vector2(23, 96)
 
 [node name="Enemies" type="Node2D" parent="." unique_id=622134306]
 z_index = 2
-
-[node name="MeleeEnemy" parent="Enemies" unique_id=1479908946 instance=ExtResource("12_pu6vg")]
-position = Vector2(185, 65)
 
 [node name="ShooterEnemy" parent="Enemies" unique_id=910157965 instance=ExtResource("12_x65ym")]
 position = Vector2(186, 104)

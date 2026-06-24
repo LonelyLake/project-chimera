@@ -7,7 +7,7 @@ enum State { IDLE, CHASE, SEARCH, ATTACK, KNOCKBACK, PATROL }
 @export var speed: float = 60.0
 @export var damage: int = 10
 @export var scrap_reward: int = 5
-@export var attack_range: float = 20.0
+@export var attack_range: float = 30.0
 @export var update_path_interval: float = 0.3
 
 var current_state = State.IDLE
@@ -18,13 +18,12 @@ var path_timer = 0.0
 var knockback_direction = Vector2.ZERO
 var is_dying = false
 
-
 func _physics_process(delta):
     if is_dying:
         velocity = velocity.lerp(Vector2.ZERO, 0.1)
         move_and_slide()
         return
-    
+        
     path_timer += delta
     
     match current_state:
@@ -42,7 +41,6 @@ func _physics_process(delta):
             _state_patrol()
     
     move_and_slide()
-
 
 func _state_idle():
     velocity = Vector2.ZERO
@@ -79,18 +77,14 @@ func _state_search():
 func _state_attack():
     velocity = Vector2.ZERO
 
-
 func _state_patrol():
     pass
 
-
-func _update_path(target: Vector2):
+func _update_path(_target: Vector2):
     pass
-
 
 func change_state(new_state: State):
     current_state = new_state
-
 
 func take_damage(amount: int):
     if is_dying:
@@ -99,33 +93,27 @@ func take_damage(amount: int):
     if hp <= 0:
         die()
 
-
-func apply_knockback(from_position: Vector2, force: float = 150.0):
+func apply_knockback(from_position: Vector2, _force: float = 150.0):
     knockback_direction = (global_position - from_position).normalized()
     change_state(State.KNOCKBACK)
 
-
 func _state_knockback():
     velocity = knockback_direction * 150.0
-
 
 func die():
     GameManager.add_scrap(scrap_reward)
     queue_free()
 
-
 func on_player_entered(body):
     if body.is_in_group("player"):
         player = body
         change_state(_get_initial_state())
-        
 
 func _get_initial_state() -> State:
     return State.CHASE
 
-
 func on_player_exited(body):
     if body.is_in_group("player"):
         player = null
-        if current_state == State.CHASE:
-            change_state(State.SEARCH)         
+        if current_state == State.CHASE or current_state == State.ATTACK:
+            change_state(State.SEARCH)
