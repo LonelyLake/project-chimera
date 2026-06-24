@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://h8p0j8w2j8v"]
 
-[ext_resource type="Script" path="res://scripts/ui/level_selector.gd" id="1_sel_script"]
+[ext_resource type="Script" uid="uid://dawkwj72s3ajo" path="res://scripts/ui/level_selector.gd" id="1_sel_script"]
 [ext_resource type="Texture2D" uid="uid://daox82d7m0pc7" path="res://assets/sprites/neo_zero/neo_zero_props_02_free.png" id="2_atlas"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
@@ -19,10 +19,10 @@ region = Rect2(0, 0, 16, 16)
 font_size = 20
 font_color = Color(0.0392157, 0.87451, 0.87451, 1)
 
-[node name="LevelSelector" type="CanvasLayer"]
+[node name="LevelSelector" type="CanvasLayer" unique_id=2106625978]
 script = ExtResource("1_sel_script")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=962572481]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1084135303]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="Panel" type="Panel" parent="Control"]
+[node name="Panel" type="Panel" parent="Control" unique_id=1119483046]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,7 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
 
-[node name="Preview" type="TextureRect" parent="Control/Panel"]
+[node name="Preview" type="TextureRect" parent="Control/Panel" unique_id=108146939]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -70,7 +70,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_preview")
 stretch_mode = 5
 
-[node name="LevelName" type="Label" parent="Control/Panel"]
+[node name="LevelName" type="Label" parent="Control/Panel" unique_id=705810036]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -88,7 +88,7 @@ label_settings = SubResource("LabelSettings_lvl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ArrowLeft" type="Button" parent="Control/Panel"]
+[node name="ArrowLeft" type="Button" parent="Control/Panel" unique_id=1519345471]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -100,7 +100,7 @@ offset_bottom = 15.5
 grow_vertical = 2
 text = "<"
 
-[node name="ArrowRight" type="Button" parent="Control/Panel"]
+[node name="ArrowRight" type="Button" parent="Control/Panel" unique_id=1352547416]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -115,7 +115,7 @@ grow_horizontal = 0
 grow_vertical = 2
 text = ">"
 
-[node name="Instruction" type="Label" parent="Control/Panel"]
+[node name="Instruction" type="Label" parent="Control/Panel" unique_id=883174127]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0

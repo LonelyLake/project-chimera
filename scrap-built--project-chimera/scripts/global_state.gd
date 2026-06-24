@@ -1,12 +1,11 @@
 extends Node
 
-
-var player_hp: float = 30
-var player_max_hp: float = 50
-var player_energy: float = 50.0
+var player_hp: float = 100.0
+var player_max_hp: float = 100.0
+var player_energy: float = 100.0
 var player_max_energy: float = 100.0
 var player_speed_bonus: float = 0.0
-var scrap_count: int = 200 # TEST
+var scrap_count: int = 200
 var player_invincible = false
 var keys_collected: int = 0
 
@@ -38,8 +37,14 @@ func _ready() -> void:
     equipped_parts["torso"] = DEFAULT_TORSO
     equipped_parts["arms"] = DEFAULT_ARMS
     equipped_parts["wheel"] = DEFAULT_WHEEL
+    
     recalculate_stats()
     
+    player_hp = player_max_hp
+    player_energy = player_max_energy
+    hp_changed.emit(player_hp)
+    energy_changed.emit(player_energy)
+
 
 func repair_player(amount: float):
     player_hp = min(player_hp + amount, player_max_hp)
@@ -54,7 +59,7 @@ func restore_energy(amount: float):
 func add_scrap(amount: int):
     scrap_count += amount
     scrap_changed.emit(scrap_count)
-    
+
 
 func collect_level_key():
     keys_collected += 1
@@ -79,6 +84,27 @@ func add_to_inventory(item: ItemData):
     print("Item added to inventory: ", item.item_name)
 
 
+func use_consumable_by_type(type: String) -> bool:
+    for item in inventory:
+        if item is Consumable:
+            
+            if type == "hp" and item.hp_restore > 0:
+                repair_player(item.hp_restore)
+                inventory.erase(item)
+                inventory_changed.emit()
+                print("Использована аптечка: ", item.item_name)
+                return true
+                
+            elif type == "energy" and item.energy_restore > 0:
+                restore_energy(item.energy_restore)
+                inventory.erase(item)
+                inventory_changed.emit()
+                print("Использована батарейка: ", item.item_name)
+                return true
+                
+    print("Нет подходящих предметов в инвентаре!")
+    return false
+
 func remove_from_inventory(item_name: String):
     for i in range(inventory.size()):
         if inventory[i].item_name == item_name:
@@ -91,14 +117,14 @@ func remove_from_inventory(item_name: String):
 func equip_part(part: RobotPart):
     var slot = RobotPart.PartType.keys()[part.type].to_lower()
     
-    # Return old part to inventory
     var old_part = equipped_parts[slot]
     if old_part != null:
         inventory.append(old_part)
     
     equipped_parts[slot] = part
     recalculate_stats()
-    
+
+
 func recalculate_stats():
     var hp_bonus = 0
     var speed_bonus = 0.0

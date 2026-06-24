@@ -199,6 +199,13 @@ rotation = -3.1415927
 scale = Vector2(2, 2)
 polygon = PackedVector2Array(-18, -13, -24, -8, -27, -3, -28, 4, -27, 11, -24, 17, -18, 20, 37, 3)
 
+[node name="Polygon2D" type="Polygon2D" parent="VisionCone" unique_id=982875051]
+color = Color(1, 0.85490197, 0.34901962, 0.11764706)
+polygon = PackedVector2Array(0, 0, 110, -34, 122, -28, 128, -16, 130, -3, 128, 12, 122, 22, 110, 32)
+
+[node name="LosRay" type="RayCast2D" parent="." unique_id=779994243]
+collision_mask = 3
+
 [node name="AttackZone" type="Area2D" parent="." unique_id=702045893]
 collision_layer = 0
 collision_mask = 2

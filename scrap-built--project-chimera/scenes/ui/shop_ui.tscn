@@ -10,98 +10,91 @@ signal shop_closed
 @onready var scrap_count_label = $Control/Panel/MarginContainer/VBoxContainer/ScrapCount
 @onready var inventory_list = $Control/InventoryPanel/MarginContainer/VBoxContainer/ItemList
 
-var items = []
+
+var items: Array[Resource] = []
 var selected_index = 0
 
 func _ready():
-	print(\"hello\")
-	hide()
-	add_shop_item(\"Battery\", \"Restores 20 energy\", 15, \"res://assets/sprites/items/items_sheet.png\", Rect2(160, 416, 16, 16), \"energy\", 20)
-	add_shop_item(\"Repair Kit\", \"Restores 25 HP\", 40, \"res://assets/sprites/other/0x72_16x16RobotTileset.v1.png\", Rect2(288, 16, 16, 16), \"hp\", 25)
-	add_shop_item(\"Light Head\", \"A fast robot head\", 100, \"res://assets/sprites/other/0x72_16x16RobotTileset.v1.png\", Rect2(0, 16, 16, 16), \"item\", 0)
-	update_ui()
+    hide()
 
-func add_shop_item(name, desc, price, atlas_path, region, type, val):
-	items.append({\"name\": name, \"desc\": desc, \"price\": price, \"atlas\": load(atlas_path), \"region\": region, \"type\": type, \"value\": val})
+    items.append(preload(\"res://resources/consumable/battery.tres\"))
+    items.append(preload(\"res://resources/consumable/repair_kit.tres\"))
+    
+    update_ui()
 
 func open():
-	show()
-	selected_index = 0
-	update_ui()
-	update_inventory()
-	GameManager.set_world_pause(true)
+    show()
+    selected_index = 0
+    update_ui()
+    update_inventory()
+    GameManager.set_world_pause(true)
 
 func close():
-	hide()
-	GameManager.set_world_pause(false)
-	shop_closed.emit()
+    hide()
+    GameManager.set_world_pause(false)
+    shop_closed.emit()
 
 func _input(event):
-	if not visible: return
-	if event.is_action_pressed(\"ui_up\"):
-		selected_index = max(0, selected_index - 1)
-		update_ui()
-	elif event.is_action_pressed(\"ui_down\"):
-		selected_index = min(items.size() - 1, selected_index + 1)
-		update_ui()
-	elif event.is_action_pressed(\"ui_accept\"):
-		print(\"buy\")
-		buy_item()
-	elif event.is_action_pressed(\"ui_cancel\"):
-		close()
+    if not visible: return
+    if event.is_action_pressed(\"ui_up\"):
+        selected_index = max(0, selected_index - 1)
+        update_ui()
+    elif event.is_action_pressed(\"ui_down\"):
+        selected_index = min(items.size() - 1, selected_index + 1)
+        update_ui()
+    elif event.is_action_pressed(\"ui_accept\"):
+        buy_item()
+    elif event.is_action_pressed(\"ui_cancel\"):
+        close()
 
 func update_ui():
-	scrap_count_label.text = \"YOUR SCRAP: \" + str(GameManager.scrap_count)
-	for i in range(item_list.get_child_count()):
-		var child = item_list.get_child(i)
-		if i < items.size():
-			var item = items[i]
-			child.show()
-			var bg = child.get_node(\"ColorRect\")
-			if i == selected_index:
-				bg.color = Color(0.04, 0.87, 0.87, 0.3)
-				description_label.text = item.desc
-			else:
-				bg.color = Color(0, 0, 0, 0)
-			var icon_rect = child.get_node(\"HBox/Icon\")
-			var atlas_tex = icon_rect.texture as AtlasTexture
-			if atlas_tex:
-				atlas_tex.atlas = item.atlas
-				atlas_tex.region = item.region
-			child.get_node(\"HBox/Name\").text = item.name
-			child.get_node(\"HBox/Price\").text = str(item.price) + \" SC\"
-		else:
-			child.hide()
+    scrap_count_label.text = \"YOUR SCRAP: \" + str(GameManager.scrap_count)
+    
+    for i in range(item_list.get_child_count()):
+        var child = item_list.get_child(i)
+        if i < items.size():
+            var item = items[i]
+            child.show()
+            
+            var bg = child.get_node(\"ColorRect\")
+            if i == selected_index:
+                bg.color = Color(0.04, 0.87, 0.87, 0.3)
+                description_label.text = item.description
+            else:
+                bg.color = Color(0, 0, 0, 0)
+            
+            var icon_rect = child.get_node(\"HBox/Icon\")
+            icon_rect.texture = item.texture
+            
+            child.get_node(\"HBox/Name\").text = item.item_name
+            child.get_node(\"HBox/Price\").text = str(item.price) + \" SC\"
+        else:
+            child.hide()
 
 func update_inventory():
-	if not inventory_list:
-		return
-	for child in inventory_list.get_children():
-		child.queue_free()
-	for item in GameManager.inventory:
-		var label = Label.new()
-		label.text = \"- \" + item.item_name
-		label.add_theme_font_size_override(\"font_size\", 10)
-		inventory_list.add_child(label)
+    if not inventory_list: return
+    for child in inventory_list.get_children():
+        child.queue_free()
+        
+    for item in GameManager.inventory:
+        var label = Label.new()
+        label.text = \"- \" + item.item_name
+        label.add_theme_font_size_override(\"font_size\", 10)
+        inventory_list.add_child(label)
 
 func buy_item():
-	var item = items[selected_index]
-	if GameManager.scrap_count >= item.price:
-		GameManager.scrap_count -= item.price
-		GameManager.scrap_changed.emit(GameManager.scrap_count)
-		match item.type:
-			\"hp\":
-				GameManager.repair_player(item.value)
-			\"energy\":
-				GameManager.restore_energy(item.value)
-			\"item\":
-				var res = load(\"res://resources/parts/light_head.tres\")
-				if res:
-					GameManager.add_to_inventory(res)
-		update_ui()
-		update_inventory()
-	else:
-		description_label.text = \"NOT ENOUGH SCRAP!\"
+    var item = items[selected_index]
+    
+    if GameManager.scrap_count >= item.price:
+        GameManager.scrap_count -= item.price
+        GameManager.scrap_changed.emit(GameManager.scrap_count)
+        
+        GameManager.add_to_inventory(item)
+        
+        update_ui()
+        update_inventory()
+    else:
+        description_label.text = \"NOT ENOUGH SCRAP!\"
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shop"]

@@ -12,8 +12,14 @@ var knockback_velocity = Vector2.ZERO
 
 var dash_speed = 400.0
 var dash_duration = 0.2
-var energy_cost = 25
-var energy_regen_rate = 10.0 
+var energy_cost = 30
+var energy_regen_rate = 6.0 
+
+var regen_delay_time: float = 1.2
+var regen_timer: float = 0.0
+
+var dash_cooldown_max: float = 1.5
+var dash_cooldown_timer: float = 0.0
 
 @onready var anim = $AnimatedSprite2D
 @onready var hit_zone = $HitZone
@@ -26,7 +32,6 @@ func _ready():
     GameManager.player_died.connect(_on_player_died)
 
 
-
 func _physics_process(delta: float) -> void:
     if is_dead:
         if is_knockback:
@@ -34,7 +39,12 @@ func _physics_process(delta: float) -> void:
         move_and_slide()
         return
     
-    if GameManager.player_energy < GameManager.player_max_energy:
+    if dash_cooldown_timer > 0:
+        dash_cooldown_timer -= delta
+    
+    if regen_timer > 0.0:
+        regen_timer -= delta
+    elif GameManager.player_energy < GameManager.player_max_energy:
         GameManager.restore_energy(energy_regen_rate * delta)
     
     if is_knockback:
@@ -42,7 +52,7 @@ func _physics_process(delta: float) -> void:
         move_and_slide()
         return
     
-    if is_dashing:  # ← добавь
+    if is_dashing:  
         move_and_slide()
         return
     
@@ -132,9 +142,11 @@ func _perform_attack():
     
 
 func _perform_dash():
-    if GameManager.player_energy < energy_cost:
+    if dash_cooldown_timer > 0 or GameManager.player_energy < energy_cost:
         return
         
+    dash_cooldown_timer = dash_cooldown_max # Активируем перезарядку
+    
     anim.modulate = Color(1.0, 0.0, 0.184, 1.0)
     
     match last_direction:
@@ -155,6 +167,8 @@ func _perform_dash():
     
     GameManager.player_energy -= energy_cost
     GameManager.energy_changed.emit(GameManager.player_energy)
+    
+    regen_timer = regen_delay_time
     
     is_attacking = true
     $DashHitZone.monitoring = true
@@ -194,34 +208,29 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("attack") and not is_attacking:
         _perform_attack()
         
-    if event.is_action_pressed("special") and not is_attacking:
+    if event.is_action_pressed("special") and not is_attacking and dash_cooldown_timer <= 0:
         _perform_dash()
         
-    # Check if the player pressed the interaction button
     if event.is_action_pressed("interact"):
-
-        # Get a list of all Area2Ds that currently overlap with our zone
         var areas = interaction_zone.get_overlapping_areas()
-
         if areas.size() > 0:
-            # Take the first item within the radius
             var item = areas[0]
-
-            # Check if this object has a collect function
             if item.has_method("collect"):
                 item.collect()
+    
+    if event.is_action_pressed("use_health"):
+        GameManager.use_consumable_by_type("hp")
+        
+    if event.is_action_pressed("use_energy"):
+        GameManager.use_consumable_by_type("energy")
 
 
 func _update_hit_zone():
     match last_direction:
-        "right":
-            hit_zone.position = Vector2(12, 0)
-        "left":
-            hit_zone.position = Vector2(-12, 0)
-        "down":
-            hit_zone.position = Vector2(0, 12)
-        "up":
-            hit_zone.position = Vector2(0, -12)
+        "right": hit_zone.position = Vector2(12, 0)
+        "left": hit_zone.position = Vector2(-12, 0)
+        "down": hit_zone.position = Vector2(0, 12)
+        "up": hit_zone.position = Vector2(0, -12)
 
 
 func _get_direction_vector() -> Vector2:
@@ -231,7 +240,6 @@ func _get_direction_vector() -> Vector2:
         "up": return Vector2.UP
         "down": return Vector2.DOWN
     return Vector2.DOWN
-    
     
     
 func _on_dash_hit_zone_entered(body):
@@ -249,4 +257,3 @@ func _on_player_died():
     if game_over:
         game_over.show()
     get_tree().paused = true
-    

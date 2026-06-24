@@ -7,10 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bofqftb74fvua" path="res://assets/sprites/other/0x72_16x16RobotTileset.v1.png" id="5_381ln"]
 [ext_resource type="PackedScene" uid="uid://do33oo8lee4i4" path="res://scenes/items/item_drop.tscn" id="5_erssn"]
 [ext_resource type="Texture2D" uid="uid://bdkv4k8dkwcjf" path="res://assets/sprites/neo_zero/neo_zero_buildings_02.png" id="5_frsds"]
-[ext_resource type="PackedScene" uid="uid://dnf6yk38ihrbd" path="res://scenes/items/key_item.tscn" id="5_keyitem"]
 [ext_resource type="PackedScene" uid="uid://dl0uori2olh8e" path="res://scenes/items/scrap_item.tscn" id="5_ysqli"]
 [ext_resource type="Resource" uid="uid://d14t7e1513i5x" path="res://resources/parts/heavy_wheel.tres" id="6_ysqli"]
-[ext_resource type="Resource" uid="uid://cwir5hl6vxxc8" path="res://resources/consumable/rename_battery.tres" id="9_x0xvm"]
+[ext_resource type="Resource" uid="uid://cwir5hl6vxxc8" path="res://resources/consumable/battery.tres" id="9_x0xvm"]
 [ext_resource type="PackedScene" uid="uid://b5xfobta1oo11" path="res://scenes/enemies/shooter_enemy.tscn" id="12_x65ym"]
 [ext_resource type="PackedScene" uid="uid://bwmorbkat1sw3" path="res://scenes/enemies/patrol_enemy.tscn" id="13_5argd"]
 [ext_resource type="PackedScene" uid="uid://b8p0j8w2j8v" path="res://scenes/objects/mystery_box.tscn" id="13_box"]
@@ -788,18 +787,6 @@ item_data = ExtResource("6_ysqli")
 
 [node name="ScrapItem" parent="Items" unique_id=1365247566 instance=ExtResource("5_ysqli")]
 position = Vector2(149, 137)
-
-[node name="KeyItem" parent="Items" unique_id=1160929547 instance=ExtResource("5_keyitem")]
-position = Vector2(151, 39)
-
-[node name="KeyItem2" parent="Items" unique_id=1381377862 instance=ExtResource("5_keyitem")]
-position = Vector2(38, -70)
-
-[node name="KeyItem3" parent="Items" unique_id=306097037 instance=ExtResource("5_keyitem")]
-position = Vector2(200, -150)
-
-[node name="KeyItem4" parent="Items" unique_id=2064780541 instance=ExtResource("5_keyitem")]
-position = Vector2(50, 150)
 
 [node name="MysteryBox" parent="Items" unique_id=1160929548 instance=ExtResource("13_box")]
 position = Vector2(209, 7)

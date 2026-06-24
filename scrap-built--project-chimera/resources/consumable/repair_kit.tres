@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Consumable" format=3 uid="uid://ffvpdpi0iy0c"]
+
+[ext_resource type="Script" uid="uid://bquakv15aqkaa" path="res://scripts/resources/consumable.gd" id="1_csyq4"]
+[ext_resource type="Texture2D" uid="uid://d2a674pjij46m" path="res://assets/sprites/items/items_sheet.png" id="2_ywhg2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yed7f"]
+atlas = ExtResource("2_ywhg2")
+region = Rect2(192, 400, 16, 16)
+
+[resource]
+script = ExtResource("1_csyq4")
+hp_restore = 25
+item_name = "Repair Kit"
+texture = SubResource("AtlasTexture_yed7f")
+price = 40
+metadata/_custom_type_script = "uid://bquakv15aqkaa"

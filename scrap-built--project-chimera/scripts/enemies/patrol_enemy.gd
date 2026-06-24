@@ -7,6 +7,7 @@ extends Enemy
 @onready var nav_agent = $NavigationAgent2D
 @onready var attack_cooldown = $AttackCooldown
 @onready var knockback_timer = $KnockbackTimer
+@onready var los_ray = $LosRay # ← Наш новый луч
 
 @export var waypoints: Array[NodePath] = []
 @export var patrol_speed: float = 40.0
@@ -20,6 +21,9 @@ var lose_player_delay: float = 0.5
 var search_timer: float = 0.0
 var search_duration: float = 3.0
 
+# Храним ссылку на игрока, ТОЛЬКО если он физически внутри конуса-триггера
+var player_in_cone_zone: Node2D = null 
+
 
 func _ready():
     await get_tree().physics_frame
@@ -30,6 +34,9 @@ func _ready():
     knockback_timer.timeout.connect(_on_knockback_finished)
     attack_cooldown.wait_time = 1.0
     
+    # Автоматически выключаем луч, чтобы он не ел ресурсы зря, будем включать руками
+    los_ray.enabled = false 
+    
     # Load waypoints
     for path in waypoints:
         waypoint_nodes.append(get_node(path))
@@ -37,6 +44,23 @@ func _ready():
 
 func _get_initial_state() -> State:
     return State.IDLE
+
+
+# Функция проверки прямой видимости (проверяет стены)
+func _can_see_player(target_player: Node2D) -> bool:
+    if target_player == null:
+        return false
+        
+    # Направляем луч прямо в центр игрока
+    los_ray.target_position = los_ray.to_local(target_player.global_position)
+    los_ray.force_raycast_update() # Обновляем физику луча прямо в этот микрокадр
+    
+    if los_ray.is_colliding():
+        var collider = los_ray.get_collider()
+        # Если первый объект, в который врезался луч — это игрок, значит стен между ними нет!
+        if collider.is_in_group("player"):
+            return true
+    return false
 
 
 func _state_idle():
@@ -50,17 +74,29 @@ func _state_patrol():
     if waypoint_nodes.is_empty():
         change_state(State.IDLE)
         return
+        
+    # ПРОВЕРКА СТЕЛСА: Если игрок в зоне и луч его видит (нет стен) — агримся
+    if _can_see_player(player_in_cone_zone):
+        player = player_in_cone_zone
+        change_state(State.CHASE)
+        return
+        
     var target = waypoint_nodes[current_waypoint_index].global_position
     _move_toward(target, patrol_speed)
     if velocity.length() > 5:
         vision_cone.rotation = velocity.angle()
+        los_ray.rotation = velocity.angle() # Поворачиваем луч вслед за взглядом
+        
     if global_position.distance_to(target) < 10:
         current_waypoint_index = (current_waypoint_index + 1) % waypoint_nodes.size()
 
 
 func _state_chase():
-    # If no player or he left aggro radius
-    if player == null or global_position.distance_to(player.global_position) > aggro_radius:
+    # Проверяем, видит ли враг игрока прямо СЕЙЧАС (не спрятался ли тот за стену)
+    var vision_blocked = not _can_see_player(player)
+    
+    # Если игрок убежал далеко ИЛИ спрятался за стену
+    if player == null or global_position.distance_to(player.global_position) > aggro_radius or vision_blocked:
         velocity = Vector2.ZERO
         anim.play("idle")
         lose_player_timer += get_physics_process_delta_time()
@@ -71,17 +107,16 @@ func _state_chase():
             change_state(State.SEARCH)
         return
     
-    # Player is close or patrol chase him
+    # Если всё ок, продолжаем погоню
     lose_player_timer = 0.0
     last_known_position = player.global_position
     has_last_known_position = true
     
-    # Flip sprite
     anim.flip_h = (player.global_position.x > global_position.x)
     
-    # Rotate visual cone
     var to_player = (player.global_position - global_position).normalized()
     vision_cone.rotation = to_player.angle()
+    los_ray.rotation = to_player.angle()
     
     nav_agent.target_position = player.global_position
     if not nav_agent.is_navigation_finished():
@@ -99,9 +134,16 @@ func _state_chase():
 
 
 func _state_search():
+    # Если во время поиска игрок снова выскочил перед глазами — ловим его
+    if _can_see_player(player_in_cone_zone):
+        player = player_in_cone_zone
+        change_state(State.CHASE)
+        return
+        
     if not has_last_known_position:
         change_state(State.PATROL)
         return
+        
     search_timer += get_physics_process_delta_time()
     if global_position.distance_to(last_known_position) > 10:
         _move_toward(last_known_position, patrol_speed)
@@ -130,13 +172,12 @@ func _move_toward(target: Vector2, move_speed: float):
 
 func _on_vision_cone_entered(body):
     if body.is_in_group("player"):
-        player = body
-        lose_player_timer = 0.0
-        search_timer = 0.0
-        change_state(State.CHASE)
+        player_in_cone_zone = body # Просто запоминаем, что игрок в зоне геометрии конуса
+
 
 func _on_vision_cone_exited(body):
     if body.is_in_group("player"):
+        player_in_cone_zone = null
         if current_state != State.CHASE:
             player = null
 

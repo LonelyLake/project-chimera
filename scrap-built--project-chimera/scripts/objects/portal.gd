@@ -31,6 +31,7 @@ func _input(event):
                 spawn_prompt("NEED " + str(missing) + " MORE KEYS!")
             else:
                 selector.open()
+                get_viewport().set_input_as_handled()
 
 func spawn_prompt(text):
     # Możemy użyć istniejącego systemu popupów jeśli istnieje, 
