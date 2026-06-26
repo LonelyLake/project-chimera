@@ -8,6 +8,7 @@ var is_knockback = false
 var is_invincible = false
 var is_dashing = false
 var is_dead = false
+var is_dialogue_active: bool = false
 var knockback_velocity = Vector2.ZERO
 
 var dash_speed = 400.0
@@ -37,6 +38,11 @@ func _physics_process(delta: float) -> void:
         if is_knockback:
             _process_knockback()
         move_and_slide()
+        return
+    
+    if is_dialogue_active:
+        velocity = Vector2.ZERO # Останавливаем движение
+        anim.play("idle_down") # Ставим в позу покоя
         return
     
     if dash_cooldown_timer > 0:
@@ -205,6 +211,9 @@ func _get_attack_damage() -> int:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+    if is_dialogue_active:
+        return
+    
     if event.is_action_pressed("attack") and not is_attacking:
         _perform_attack()
         
@@ -213,10 +222,18 @@ func _unhandled_input(event: InputEvent) -> void:
         
     if event.is_action_pressed("interact"):
         var areas = interaction_zone.get_overlapping_areas()
-        if areas.size() > 0:
-            var item = areas[0]
+        
+        # Перебираем все объекты в зоне взаимодействия
+        for item in areas:
+            # Приоритет отдаем диалогам/терминалам (interact)
+            if item.has_method("interact"):
+                item.interact()
+                return # Выходим из функции, чтобы не активировать лишнее
+            
+            # Если это не NPC, проверяем, можно ли это собрать (collect)
             if item.has_method("collect"):
                 item.collect()
+                return # Выходим после подбора
     
     if event.is_action_pressed("use_health"):
         GameManager.use_consumable_by_type("hp")

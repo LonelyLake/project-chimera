@@ -25,6 +25,7 @@ signal scrap_changed(new_val)
 signal key_collected()
 signal inventory_changed()
 signal player_died
+signal alarm_raised(position: Vector2, room_name: String)
 
 const DEFAULT_HEAD = preload("res://resources/parts/light_head.tres")
 const DEFAULT_TORSO = preload("res://resources/parts/light_torso.tres")

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ci6xd7ncy1708"]
+
+[ext_resource type="Texture2D" uid="uid://daox82d7m0pc7" path="res://assets/sprites/neo_zero/neo_zero_props_02_free.png" id="1_anujl"]
+[ext_resource type="Script" uid="uid://c7aa27k07ltye" path="res://scripts/objects/teleport_terminal.gd" id="1_bn6mh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bn6mh"]
+atlas = ExtResource("1_anujl")
+region = Rect2(40, 16, 24, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gprdx"]
+radius = 37.12142
+
+[node name="TeleportTerminal" type="Area2D" unique_id=524352422]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_bn6mh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=689108438]
+texture = SubResource("AtlasTexture_bn6mh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1048399099]
+shape = SubResource("CircleShape2D_gprdx")

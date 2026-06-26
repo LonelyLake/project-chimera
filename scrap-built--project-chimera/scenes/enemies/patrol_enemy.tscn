@@ -173,13 +173,19 @@ animations = [{
 radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0uhpl"]
-radius = 18.0
+radius = 21.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_phsxw"]
+radius = 38.052597
 
 [node name="PatrolEnemy" type="CharacterBody2D" unique_id=176844455 groups=["enemy"]]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_phsxw")
+hp = 100
+speed = 50.0
+damage = 40
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=209645594]
 sprite_frames = SubResource("SpriteFrames_1o71s")
@@ -194,14 +200,16 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" unique_id=457922717]
-position = Vector2(74, 6)
+position = Vector2(99.99999, 8)
 rotation = -3.1415927
-scale = Vector2(2, 2)
-polygon = PackedVector2Array(-18, -13, -24, -8, -27, -3, -28, 4, -27, 11, -24, 17, -18, 20, 37, 3)
+scale = Vector2(2.7112052, 2.573475)
+polygon = PackedVector2Array(-18, -13, -24, -8, -27, -3, -28.769497, 3.1086347, -28.031818, 11.268808, -25.0811, 18.26324, -19.548508, 20.9833, 37, 3)
 
 [node name="Polygon2D" type="Polygon2D" parent="VisionCone" unique_id=982875051]
+position = Vector2(2.0000002, 1.0000001)
+scale = Vector2(1.3769512, 1.3769512)
 color = Color(1, 0.85490197, 0.34901962, 0.11764706)
-polygon = PackedVector2Array(0, 0, 110, -34, 122, -28, 128, -16, 130, -3, 128, 12, 122, 22, 110, 32)
+polygon = PackedVector2Array(0, 0, 109.66257, -34.13338, 120.556206, -29.049686, 126.36614, -15.977328, 127.81862, -0.72624224, 124.187416, 10.893633, 118.37748, 20.334782, 106.7576, 29.049688)
 
 [node name="LosRay" type="RayCast2D" parent="." unique_id=779994243]
 collision_mask = 3
@@ -220,3 +228,10 @@ one_shot = true
 
 [node name="KnockbackTimer" type="Timer" parent="." unique_id=1355291389]
 one_shot = true
+
+[node name="ProximityZone" type="Area2D" parent="." unique_id=557956982]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProximityZone" unique_id=1760453219]
+shape = SubResource("CircleShape2D_phsxw")

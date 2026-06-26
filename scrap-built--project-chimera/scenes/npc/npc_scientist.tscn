@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://duxsydlo4ct6d"]
+
+[ext_resource type="Texture2D" uid="uid://b13uob4fxnduy" path="res://assets/sprites/other/scientist.png" id="1_ad1rw"]
+[ext_resource type="Script" uid="uid://bphyv30gohm21" path="res://scripts/npc/npc_scientist.gd" id="1_osu02"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_osu02"]
+radius = 28.01785
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_osu02"]
+radius = 9.0
+height = 26.0
+
+[node name="NPC_Scientist" type="Area2D" unique_id=373080578]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_osu02")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=399350074]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_ad1rw")
+hframes = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1109463113]
+shape = SubResource("CircleShape2D_osu02")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=449808795]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=757313998]
+shape = SubResource("CapsuleShape2D_osu02")

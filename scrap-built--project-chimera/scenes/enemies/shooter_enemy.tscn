@@ -229,13 +229,14 @@ animations = [{
 radius = 14.035668
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yb54f"]
-radius = 115.03912
+radius = 265.61063
 
 [node name="ShooterEnemy" type="CharacterBody2D" unique_id=910157965 groups=["enemy"]]
 collision_layer = 4
 collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_yb54f")
+damage = 40
 
 [node name="BulletSpawn" type="Marker2D" parent="." unique_id=1723552862]
 position = Vector2(-15, 0)

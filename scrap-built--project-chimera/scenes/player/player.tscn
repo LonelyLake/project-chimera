@@ -533,7 +533,7 @@ shape = SubResource("CapsuleShape2D_15tap")
 
 [node name="InteractionZone" type="Area2D" parent="." unique_id=982656552]
 collision_layer = 0
-collision_mask = 8
+collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone" unique_id=158175879]
 shape = SubResource("CapsuleShape2D_gmlin")
