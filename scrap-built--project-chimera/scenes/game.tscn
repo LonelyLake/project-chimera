@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dt1fgdlohcd0n" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://bq6fsj12k8ylr" path="res://scenes/levels/hub.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://bystgchiaxveb" path="res://scenes/ui/ui.tscn" id="2_yqjtg"]
-[ext_resource type="AudioStream" uid="uid://dnbirgj122njp" path="res://assets/sprites/other/chiphead64 - 11pm.ogg" id="4_lbhrr"]
+[ext_resource type="AudioStream" uid="uid://dnbirgj122njp" path="res://assets/audio/music/chiphead64 - 11pm.ogg" id="4_lbhrr"]
 
 [node name="Game" type="Node2D" unique_id=254877117]
 script = ExtResource("1_lnu2h")

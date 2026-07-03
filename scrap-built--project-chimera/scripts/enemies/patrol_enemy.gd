@@ -273,6 +273,7 @@ func take_damage(amount: int):
         return
     
     hp -= amount
+    GameManager.play_sfx("res://assets/audio/sfx/enemy_hurt.wav")
     
     # ПРИНУДИТЕЛЬНЫЙ СБРОС АТАКИ ПРИ УРОНЕ
     is_winding_up_attack = false
@@ -339,6 +340,7 @@ func die():
     $CollisionShape2D.set_deferred("disabled", true)
     vision_cone.monitoring = false
     attack_zone.monitoring = false
+    GameManager.play_sfx("res://assets/audio/sfx/explosion.wav")
     anim.play("death")
     await anim.animation_finished
     queue_free()

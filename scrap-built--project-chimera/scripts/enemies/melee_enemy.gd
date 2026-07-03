@@ -15,7 +15,6 @@ func _ready():
     detection_zone.body_exited.connect(on_player_exited)
     
     anim.frame_changed.connect(_on_frame_changed)
-    # Безопасное управление окончанием анимаций через сигнал движка:
     anim.animation_finished.connect(_on_animation_finished)
     
     attack_cooldown.wait_time = 1.5
@@ -24,11 +23,12 @@ func _ready():
     
     attack_zone.monitoring = true
 
-# Перехватываем смену состояний: если врага прервали во время атаки, сбрасываем флаг флаг атаки
+
 func change_state(new_state: State):
     if current_state == State.ATTACK and new_state != State.ATTACK:
         is_attacking = false
     super.change_state(new_state)
+
 
 func _update_path(target: Vector2):
     nav_agent.target_position = target
@@ -49,7 +49,6 @@ func _update_path(target: Vector2):
         velocity = final_direction * speed
         anim.flip_h = velocity.x > 0
         
-        # Запускаем бег только если не заняты атакой или получением урона
         if current_state == State.CHASE and anim.animation != "move":
             anim.play("move")
 
@@ -96,7 +95,6 @@ func _check_hit():
 
 func _state_knockback():
     velocity = knockback_direction * 150.0
-    # Проверка, чтобы не перезапускать анимацию боли каждый кадр:
     if anim.animation != "hurt":
         anim.play("hurt")
 
@@ -110,7 +108,6 @@ func apply_knockback(from_position: Vector2, force: float = 150.0):
     knockback_timer.start()  
 
 func _on_animation_finished():
-    # Вместо забагованных await используем безопасный обработчик сигналов
     if anim.animation == "attack":
         is_attacking = false
         if current_state == State.ATTACK:
@@ -124,19 +121,20 @@ func die():
     velocity = Vector2.ZERO
     GameManager.add_scrap(scrap_reward)
     
-    # Безопасное отключение физики
     $CollisionShape2D.set_deferred("disabled", true)
     attack_zone.set_deferred("monitoring", false)
     detection_zone.set_deferred("monitoring", false)
     
     anim.play("death")
+    GameManager.play_sfx("res://assets/audio/sfx/explosion.wav")
 
 func take_damage(amount: int):
     if is_dying:
         return
     hp -= amount
+    GameManager.play_sfx("res://assets/audio/sfx/enemy_hurt.wav")
+    
     if hp <= 0:
         die()
     else:
-        # Если выжил — включаем отбрасывание, оно само включит анимацию боли
         apply_knockback(player.global_position if player else global_position)

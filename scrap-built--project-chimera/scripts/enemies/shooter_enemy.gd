@@ -86,10 +86,11 @@ func take_damage(amount: int):
     if is_dying:
         return
     hp -= amount
+    GameManager.play_sfx("res://assets/audio/sfx/enemy_hurt.wav")
     if hp <= 0:
         is_dying = true
         anim.play("hurt")
-        velocity = knockback_direction * 200.0  # ← отлёт во время hurt
+        velocity = knockback_direction * 200.0
         await anim.animation_finished
         die()
     else:
@@ -100,6 +101,7 @@ func die():
     GameManager.add_scrap(scrap_reward)
     $CollisionShape2D.set_deferred("disabled", true)
     detection_zone.monitoring = false
+    GameManager.play_sfx("res://assets/audio/sfx/explosion.wav")
     anim.play("death")
     await anim.animation_finished
     queue_free()

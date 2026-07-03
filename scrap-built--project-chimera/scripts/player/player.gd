@@ -134,6 +134,8 @@ func _process_knockback():
 
 
 func _perform_attack():
+    GameManager.play_sfx("res://assets/audio/sfx/laser_swing.wav")
+    
     is_attacking = true
     if last_direction == "left":
         anim.flip_h = true
@@ -148,10 +150,12 @@ func _perform_attack():
     
 
 func _perform_dash():
+    GameManager.play_sfx("res://assets/audio/sfx/dash_boost.wav")
+    
     if dash_cooldown_timer > 0 or GameManager.player_energy < energy_cost:
         return
         
-    dash_cooldown_timer = dash_cooldown_max # Активируем перезарядку
+    dash_cooldown_timer = dash_cooldown_max
     
     anim.modulate = Color(1.0, 0.0, 0.184, 1.0)
     

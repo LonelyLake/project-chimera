@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://bdeldesyk3eq5"]
+
+[ext_resource type="Script" uid="uid://pvhuc1jmheio" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
+[ext_resource type="AudioStream" uid="uid://dnbirgj122njp" path="res://assets/audio/music/chiphead64 - 11pm.ogg" id="2_fe2o3"]
+
+[node name="MainMenu" type="Control" unique_id=1689500067]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 358.0
+script = ExtResource("1_sl1te")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=959663224]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.096204735, 0.09620475, 0.096204735, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=463595013]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=1029829942]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "PROJECT CHIMERA"
+
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=221937052]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Start Game"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=677298579]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Settings & Controls"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1458418826]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Quit Game"
+
+[node name="SettingsPanel" type="Panel" parent="." unique_id=540537704]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.5
+offset_top = -168.5
+offset_right = 154.5
+offset_bottom = 168.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoLabel" type="Label" parent="SettingsPanel" unique_id=925960474]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.0
+offset_top = -159.0
+offset_right = 136.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "--- CONTROLS ---
+WASD - Move
+E - Interact (NPC, Chests, Terminals)
+Shift - Dash
+
+--- OBJECTIVE ---
+1. Talk to the Scientist.
+2. Collect keys in the Factory.
+3. Open the Mystery Box.
+4. Use the Terminal to return to the Hub.
+
+--- SETTINGS---"
+horizontal_alignment = 1
+vertical_alignment = 3
+
+[node name="VolumeLabel" type="Label" parent="SettingsPanel" unique_id=159946029]
+layout_mode = 0
+offset_left = 96.5
+offset_top = 176.5
+offset_right = 157.5
+offset_bottom = 185.5
+text = "Volume:"
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsPanel" unique_id=1630506918]
+layout_mode = 1
+offset_left = 149.5
+offset_top = 173.5
+offset_right = 263.5
+offset_bottom = 189.5
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="FullscreenCheck" type="CheckButton" parent="SettingsPanel" unique_id=1454159458]
+layout_mode = 0
+offset_left = 109.5
+offset_top = 206.5
+offset_right = 246.5
+offset_bottom = 230.5
+theme_override_font_sizes/font_size = 8
+text = "Fullscreen Mode"
+
+[node name="CloseSettingsButton" type="Button" parent="SettingsPanel" unique_id=1605347335]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -33.5
+offset_right = 86.19354
+offset_bottom = -9.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Close"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=758205257]
+stream = ExtResource("2_fe2o3")
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="value_changed" from="SettingsPanel/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="toggled" from="SettingsPanel/FullscreenCheck" to="." method="_on_fullscreen_check_toggled"]
+[connection signal="pressed" from="SettingsPanel/CloseSettingsButton" to="." method="_on_close_settings_button_pressed"]

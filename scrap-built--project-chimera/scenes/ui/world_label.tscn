@@ -1,39 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2p0j8w2j8v"]
+[gd_scene format=3 uid="uid://b2p0j8w2j8v"]
 
 [sub_resource type="GDScript" id="GDScript_label"]
 script/source = "extends Node2D
 
 @export var text: String = \"LABEL\":
-	set(value):
-		text = value
-		if is_inside_tree():
-			$PanelContainer/MarginContainer/Label.text = value
+    set(value):
+        text = value
+        if is_inside_tree():
+            $PanelContainer/MarginContainer/Label.text = value
 
 @export var color: Color = Color(1, 0, 0):
-	set(value):
-		color = value
-		if is_inside_tree():
-			update_color()
+    set(value):
+        color = value
+        if is_inside_tree():
+            update_color()
 
 func _ready():
-	$PanelContainer/MarginContainer/Label.text = text
-	update_color()
-	
-	# Animacja pływania góra-dół
-	var tween = create_tween().set_loops()
-	tween.tween_property($PanelContainer, \"position:y\", -3.0, 1.5).as_relative().set_trans(Tween.TRANS_SINE)
-	tween.tween_property($PanelContainer, \"position:y\", 3.0, 1.5).as_relative().set_trans(Tween.TRANS_SINE)
+    $PanelContainer/MarginContainer/Label.text = text
+    update_color()
+    
+    # Animacja pływania góra-dół
+    var tween = create_tween().set_loops()
+    tween.tween_property($PanelContainer, \"position:y\", -3.0, 1.5).as_relative().set_trans(Tween.TRANS_SINE)
+    tween.tween_property($PanelContainer, \"position:y\", 3.0, 1.5).as_relative().set_trans(Tween.TRANS_SINE)
 
 func update_color():
-	# Duplikujemy styl ramki, aby był unikalny dla tej instancji
-	var style_box = $PanelContainer.get_theme_stylebox(\"panel\").duplicate()
-	style_box.border_color = color
-	$PanelContainer.add_theme_stylebox_override(\"panel\", style_box)
-	
-	# Duplikujemy LabelSettings, aby zmiana koloru tekstu nie wpływała na inne napisy
-	if $PanelContainer/MarginContainer/Label.label_settings:
-		$PanelContainer/MarginContainer/Label.label_settings = $PanelContainer/MarginContainer/Label.label_settings.duplicate()
-		$PanelContainer/MarginContainer/Label.label_settings.font_color = color
+    # Duplikujemy styl ramki, aby był unikalny dla tej instancji
+    var style_box = $PanelContainer.get_theme_stylebox(\"panel\").duplicate()
+    style_box.border_color = color
+    $PanelContainer.add_theme_stylebox_override(\"panel\", style_box)
+    
+    # Duplikujemy LabelSettings, aby zmiana koloru tekstu nie wpływała na inne napisy
+    if $PanelContainer/MarginContainer/Label.label_settings:
+        $PanelContainer/MarginContainer/Label.label_settings = $PanelContainer/MarginContainer/Label.label_settings.duplicate()
+        $PanelContainer/MarginContainer/Label.label_settings.font_color = color
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_label"]
@@ -58,11 +58,11 @@ font_color = Color(1, 0.2, 0.2, 1)
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
-[node name="WorldLabel" type="Node2D"]
+[node name="WorldLabel" type="Node2D" unique_id=828524865]
 scale = Vector2(0.5, 0.5)
 script = SubResource("GDScript_label")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1839289132]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -76,14 +76,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_label")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=437967941]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer" unique_id=1015827836]
 layout_mode = 2
 text = "LABEL"
 label_settings = SubResource("LabelSettings_label")

@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cjwxxlccwdfob" path="res://assets/sprites/tilesets/tilesStuff.png" id="3_vqp87"]
 [ext_resource type="PackedScene" uid="uid://dnf6yk38ihrbd" path="res://scenes/items/key_item.tscn" id="4_2fbrs"]
 [ext_resource type="Texture2D" uid="uid://ba2amx1mp0pal" path="res://assets/sprites/tilesets/spriteSheet_lightBulbSmallAnimation_16x16.png" id="5_ffdlx"]
+[ext_resource type="Resource" uid="uid://d14t7e1513i5x" path="res://resources/parts/heavy_wheel.tres" id="5_jy0sh"]
 [ext_resource type="Texture2D" uid="uid://di2gplm8ob0aw" path="res://assets/sprites/other/1347872-4196739063.jpg" id="6_0qwd0"]
 [ext_resource type="PackedScene" uid="uid://bd2qd25rof4m2" path="res://scenes/enemies/melee_enemy.tscn" id="6_ramhb"]
 [ext_resource type="PackedScene" uid="uid://bwmorbkat1sw3" path="res://scenes/enemies/patrol_enemy.tscn" id="11_r0g5m"]
@@ -1121,16 +1122,24 @@ z_index = 1
 position = Vector2(393, 206)
 item_data = ExtResource("3_2fbrs")
 
+[node name="Battery2" parent="Items" unique_id=2055219838 instance=ExtResource("2_5vyh3")]
+position = Vector2(1497, 453)
+item_data = ExtResource("3_2fbrs")
+
 [node name="Keys" type="Node2D" parent="Items" unique_id=1456514872]
 
 [node name="KeyItem" parent="Items/Keys" unique_id=550753818 instance=ExtResource("4_2fbrs")]
 position = Vector2(585, 282.00003)
 
 [node name="KeyItem2" parent="Items/Keys" unique_id=221519611 instance=ExtResource("4_2fbrs")]
-position = Vector2(42, 36.999992)
+position = Vector2(1383, 141)
 
 [node name="KeyItem3" parent="Items/Keys" unique_id=2122809838 instance=ExtResource("4_2fbrs")]
-position = Vector2(1173, 10)
+position = Vector2(2521, 501)
+
+[node name="HeavyLegs" parent="Items" unique_id=2022359432 instance=ExtResource("2_5vyh3")]
+position = Vector2(1590, -15)
+item_data = ExtResource("5_jy0sh")
 
 [node name="Player" parent="." unique_id=1864995814 instance=ExtResource("2_iuutr")]
 position = Vector2(63, 116)
@@ -1229,7 +1238,7 @@ position = Vector2(2018, 452)
 [node name="NPC" type="Node2D" parent="." unique_id=283886467]
 
 [node name="NPC_Scientist" parent="NPC" unique_id=373080578 instance=ExtResource("14_rbf27")]
-position = Vector2(180, 120)
+position = Vector2(131, 45)
 
 [node name="Objects" type="Node2D" parent="." unique_id=396355483]
 

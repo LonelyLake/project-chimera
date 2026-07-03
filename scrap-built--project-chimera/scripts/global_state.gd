@@ -8,6 +8,7 @@ var player_speed_bonus: float = 0.0
 var scrap_count: int = 200
 var player_invincible = false
 var keys_collected: int = 0
+var intro_played: bool = false
 
 var inventory: Array[ItemData] = []
 var equipped_parts = {
@@ -161,3 +162,15 @@ func set_world_pause(pause: bool):
     for enemy in enemies:
         if is_instance_valid(enemy):
             enemy.set_physics_process(!pause)
+
+func play_sfx(sfx_path: String):
+    if sfx_path == "" or not ResourceLoader.exists(sfx_path):
+        return
+        
+    var sfx_player = AudioStreamPlayer.new()
+    sfx_player.stream = load(sfx_path)
+    sfx_player.bus = "Master"
+    get_tree().root.add_child(sfx_player)
+    sfx_player.play()
+    
+    sfx_player.finished.connect(func(): sfx_player.queue_free())

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dnbirgj122njp"
+path="res://.godot/imported/chiphead64 - 11pm.ogg-cad925f70b37f7cd7ed05d4cdbe03c7c.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/chiphead64 - 11pm.ogg"
+dest_files=["res://.godot/imported/chiphead64 - 11pm.ogg-cad925f70b37f7cd7ed05d4cdbe03c7c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

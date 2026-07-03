@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Scrap-Built: Project Chimera"
-run/main_scene="uid://clccev2edys22"
+run/main_scene="uid://bdeldesyk3eq5"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -24,7 +24,10 @@ Dialogic="*uid://ds2q0uclmolvu"
 
 directories/dch_directory={}
 directories/dtl_directory={
-"scientist_talk": "res://dialogic/scientist_talk.dtl"
+"game_ending": "res://dialogic/game_ending.dtl",
+"game_intro": "res://dialogic/game_intro.dtl",
+"scientist_talk": "res://dialogic/scientist_talk.dtl",
+"terminal_locked": "res://dialogic/terminal_locked.dtl"
 }
 layout/style_directory={}
 glossary/default_case_sensitive=true

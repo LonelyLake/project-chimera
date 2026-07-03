@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://bq6fsj12k8ylr"]
 
+[ext_resource type="Script" uid="uid://i24xyjdot82b" path="res://scenes/levels/hub.gd" id="1_qn4st"]
 [ext_resource type="PackedScene" uid="uid://cvctvv0cp3ot4" path="res://scenes/player/player.tscn" id="1_vxnch"]
 [ext_resource type="PackedScene" uid="uid://cyww41exk637b" path="res://scenes/player/shop_assistant.tscn" id="2_ysqli"]
 [ext_resource type="Texture2D" uid="uid://jxeaprly0uck" path="res://assets/sprites/neo_zero/tileset.png" id="3_3vq6u"]
@@ -8,8 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://do33oo8lee4i4" path="res://scenes/items/item_drop.tscn" id="5_erssn"]
 [ext_resource type="Texture2D" uid="uid://bdkv4k8dkwcjf" path="res://assets/sprites/neo_zero/neo_zero_buildings_02.png" id="5_frsds"]
 [ext_resource type="PackedScene" uid="uid://dl0uori2olh8e" path="res://scenes/items/scrap_item.tscn" id="5_ysqli"]
-[ext_resource type="Resource" uid="uid://d14t7e1513i5x" path="res://resources/parts/heavy_wheel.tres" id="6_ysqli"]
-[ext_resource type="Resource" uid="uid://cwir5hl6vxxc8" path="res://resources/consumable/battery.tres" id="9_x0xvm"]
 [ext_resource type="PackedScene" uid="uid://b8p0j8w2j8v" path="res://scenes/objects/mystery_box.tscn" id="13_box"]
 [ext_resource type="PackedScene" uid="uid://c8p0j8w2j8v" path="res://scenes/objects/arcade_machine.tscn" id="14_arcade"]
 [ext_resource type="PackedScene" uid="uid://b2p0j8w2j8v" path="res://scenes/ui/world_label.tscn" id="15_world_label"]
@@ -773,28 +772,19 @@ sources/2 = SubResource("TileSetAtlasSource_x0xvm")
 
 [node name="Hub" type="Node2D" unique_id=1526646529]
 y_sort_enabled = true
+script = ExtResource("1_qn4st")
 
 [node name="Items" type="Node2D" parent="." unique_id=944019924]
 position = Vector2(5, 5)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="HeavyLegs" parent="Items" unique_id=1961565819 instance=ExtResource("5_erssn")]
-position = Vector2(47, 101)
-item_data = ExtResource("6_ysqli")
-
 [node name="ScrapItem" parent="Items" unique_id=1365247566 instance=ExtResource("5_ysqli")]
 position = Vector2(149, 137)
 
-[node name="MysteryBox" parent="Items" unique_id=1160929548 instance=ExtResource("13_box")]
-position = Vector2(209, 7)
-
-[node name="MysteryBoxRare" parent="Items" unique_id=2115409600 instance=ExtResource("13_box")]
-position = Vector2(209, 37)
-type = 1
-
 [node name="MysteryBoxEpic" parent="Items" unique_id=2102985815 instance=ExtResource("13_box")]
-position = Vector2(209, 69)
+position = Vector2(184, 35)
+collision_layer = 8
 type = 2
 
 [node name="ArcadeMachine" parent="Items" unique_id=1072347110 instance=ExtResource("14_arcade")]
@@ -807,10 +797,6 @@ position = Vector2(25, 8)
 position = Vector2(43, 8)
 
 [node name="Ammo" parent="Items" unique_id=423395755 instance=ExtResource("5_erssn")]
-
-[node name="Battery" parent="Items" unique_id=1123427933 instance=ExtResource("5_erssn")]
-position = Vector2(98, 40)
-item_data = ExtResource("9_x0xvm")
 
 [node name="Player" parent="." unique_id=1864995814 instance=ExtResource("1_vxnch")]
 z_index = 1
@@ -859,24 +845,10 @@ text = "SHOP"
 position = Vector2(29, -9)
 text = "ARCADE"
 
-[node name="MysteryBoxLabel" parent="Labels" unique_id=785887855 instance=ExtResource("15_world_label")]
-visible = false
-position = Vector2(213, -8)
-text = "MYSTERY BOXES"
-
-[node name="CommonLabel" parent="Labels" unique_id=640346048 instance=ExtResource("15_world_label")]
-position = Vector2(239, 12)
-text = "COMMON"
-color = Color(0, 0.6313726, 0.03137255, 1)
-
-[node name="RareLabel" parent="Labels" unique_id=72991949 instance=ExtResource("15_world_label")]
-position = Vector2(239, 43)
-text = "RARE"
-color = Color(1, 0.647059, 0, 1)
-
 [node name="EpicLabel" parent="Labels" unique_id=1411514146 instance=ExtResource("15_world_label")]
-position = Vector2(239, 75)
-text = "EPIC"
+z_index = 2
+position = Vector2(189, 25)
+text = "Mainframe Box"
 color = Color(0.627451, 0.12549, 0.941176, 1)
 
 [node name="NPC" type="Node2D" parent="." unique_id=78555279]
